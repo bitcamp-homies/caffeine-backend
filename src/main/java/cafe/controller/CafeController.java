@@ -23,8 +23,8 @@ public class CafeController {
 		return cafeService.getCafeListAll();
 	}
 
-  @GetMapping(value = "/cafe/cafeidone")
-  public CafeDTOMybatis getCafeIdOne() {
-    return cafeService.findCafeIdOne();
+  @GetMapping(value = "/cafe/listAllMybatis")
+  public List<CafeDTOMybatis> getCafeIdOne() {
+    return cafeService.getCafeListAllMybatis();
   }
 }

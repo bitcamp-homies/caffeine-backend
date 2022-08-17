@@ -7,7 +7,9 @@ import cafe.bean.mybatis.CafeDTOMybatis;
 
 public interface CafeService {
 
+  //JPA
 	List<CafeDTO> getCafeListAll();
-  CafeDTOMybatis findCafeIdOne();
 
+  //MyBatis
+  List<CafeDTOMybatis> getCafeListAllMybatis();
 }

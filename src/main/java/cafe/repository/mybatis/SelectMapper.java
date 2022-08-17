@@ -1,5 +1,7 @@
 package cafe.repository.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,6 @@ import cafe.bean.mybatis.CafeDTOMybatis;
 @Mapper
 public interface SelectMapper {
 
-  @Select("SELECT * FROM cafes WHERE cafe_id = 1")
-  CafeDTOMybatis findCafeIdOne();
+  @Select("SELECT * FROM CafeDTO")
+  List<CafeDTOMybatis> getCafeListAll();
 }

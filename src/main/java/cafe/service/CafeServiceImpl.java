@@ -26,7 +26,7 @@ public class CafeServiceImpl implements CafeService {
 	}
 
   @Override
-  public CafeDTOMybatis findCafeIdOne() {
-    return selectMapper.findCafeIdOne();
+  public List<CafeDTOMybatis> getCafeListAllMybatis() {
+    return selectMapper.getCafeListAll();
   }
 }
