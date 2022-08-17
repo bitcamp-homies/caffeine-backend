@@ -1,4 +1,4 @@
-package cafe.bean;
+package cafe.bean.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

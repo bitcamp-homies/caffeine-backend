@@ -2,7 +2,7 @@ package cafe.service;
 
 import java.util.List;
 
-import cafe.bean.CafeDTO;
+import cafe.bean.jpa.CafeDTO;
 
 public interface CafeService {
 

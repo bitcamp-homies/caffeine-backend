@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cafe.bean.CafeDTO;
+import cafe.bean.jpa.CafeDTO;
 import cafe.service.CafeService;
 
 @RestController
