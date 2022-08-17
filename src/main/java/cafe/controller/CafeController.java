@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.service.CafeService;
 
 @RestController
@@ -21,4 +22,9 @@ public class CafeController {
 	public List<CafeDTO> getCafeListAll() {
 		return cafeService.getCafeListAll();
 	}
+
+  @GetMapping(value = "/cafe/cafeidone")
+  public CafeDTOMybatis getCafeIdOne() {
+    return cafeService.findCafeIdOne();
+  }
 }
