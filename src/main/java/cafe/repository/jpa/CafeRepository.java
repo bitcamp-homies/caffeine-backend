@@ -1,11 +1,11 @@
-package cafe.repository;
+package cafe.repository.jpa;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import cafe.bean.CafeDTO;
+import cafe.bean.jpa.CafeDTO;
 
 public interface CafeRepository extends JpaRepository<CafeDTO, String> {
 	
