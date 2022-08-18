@@ -25,8 +25,8 @@ public interface SelectMapper {
   List<CafePointTest> getCafeListBoundary(@Param("userLong")double userLong, @Param("userLat")double userLat);
 
   //풍혁0818 : point mapping try1
-  @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, ST_Y(coord) AS latitude, ST_X(coord) AS longitude from cafes")
-  List<CafeDTOCoordTemp> getCafesListWithCoord();
+  @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from cafes")
+  List<CafeDTOCoordTemp> getCafesListWithCoord(@Param("userLong")double userLong, @Param("userLat")double userLat);
 
   //풍혁0818 : cafe_id와 kakao map api로 부터 받은 좌표 가져와서 DB coord 최신화
   @Update("UPDATE cafes SET COORD = POINT(${longitude}, ${latitude}) WHERE cafe_id = ${cafe_id}")

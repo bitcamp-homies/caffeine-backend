@@ -41,9 +41,9 @@ public class CafeServiceImpl implements CafeService {
   }
   
   @Override
-  public List<CafeDTOCoordTemp> getCafesListWithCoord() {
+  public List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat) {
     
-    List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoord();
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoord(userLong, userLat);
     return list;
     
   }

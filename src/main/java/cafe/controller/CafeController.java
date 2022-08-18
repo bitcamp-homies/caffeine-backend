@@ -42,15 +42,15 @@ public class CafeController {
 	}
 	
 	@GetMapping(value = "/cafe/listAlllWithCoord")
-	public List<CafeDTOCoordTemp> getCafesListWithCoord(){
-	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoord();
+	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
+	  System.out.println("\n @PH LOG@ 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoord(userLong, userLat);
 	  
 	  return list;
 	}
 	
 	@GetMapping(value = "/cafe/updateCoord")
 	public void updateCoord(@RequestParam(value = "longitude") double longitude, @RequestParam(value = "latitude") double latitude, @RequestParam(value = "cafe_id") long cafe_id) {
-	  System.out.println("\n @PH LOG@ 받은 경위도, cafe_id : " + longitude + "\t " + latitude + "\t" + cafe_id);
 	  cafeService.updateCoord(longitude, latitude, cafe_id);
 	  
 	  return ;

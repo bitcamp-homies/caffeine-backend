@@ -17,4 +17,5 @@ public class CafeDTOCoordTemp {
   private String address4;
   private double longitude;
   private double latitude;
+  private double distance;
 }
