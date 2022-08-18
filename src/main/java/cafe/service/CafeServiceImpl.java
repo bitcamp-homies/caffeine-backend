@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
+import cafe.bean.mybatis.CafePointTest;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.SelectMapper;
 
@@ -28,5 +30,29 @@ public class CafeServiceImpl implements CafeService {
   @Override
   public List<CafeDTOMybatis> getCafeListAllMybatis() {
     return selectMapper.getCafeListAll();
+  }
+  
+  @Override
+  public List<CafePointTest> getCafeListBoundary(double userLong, double userLat) {
+    
+    List<CafePointTest> list = selectMapper.getCafeListBoundary(userLong, userLat);
+    
+    return list;
+  }
+  
+  @Override
+  public List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat) {
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoord(userLong, userLat);
+    return list;
+    
+  }
+  
+  @Override
+  public void updateCoord(double longitude, double latitude, long cafe_id) {
+    
+    selectMapper.updateCoord(longitude, latitude, cafe_id);
+    
+    return ;
   }
 }
