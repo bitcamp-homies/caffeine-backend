@@ -16,7 +16,7 @@ import cafe.bean.mybatis.CafePointTest;
 @Repository
 @Transactional
 @Mapper
-public interface SelectMapper {
+public interface SelectMapper { 
 
   @Select("SELECT * FROM CafeDTO")
   public List<CafeDTOMybatis> getCafeListAll();
