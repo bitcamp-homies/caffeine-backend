@@ -1,6 +1,7 @@
 package cafe.repository.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -14,5 +15,9 @@ import cafe.bean.mybatis.CafeDTOMybatis;
 public interface SelectMapper {
 
   @Select("SELECT * FROM CafeDTO")
-  List<CafeDTOMybatis> getCafeListAll();
+  public List<CafeDTOMybatis> getCafeListAll();
+  @Select("select * from users where nickname =#{NickName}")
+  public String NickNameCheck(Map<String, String> map);
+  @Select("select * from users where email = #{Email}")
+  public String EmailCheck(Map<String, String> map);
 }
