@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
+import cafe.bean.mybatis.CafePointTest;
 
 public interface CafeService {
 
@@ -22,4 +24,11 @@ public interface CafeService {
   //My Batis
   public int createMember(Map<String, String> map);
 
+
+  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
+
+  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
+
+  void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 }
+
