@@ -15,12 +15,10 @@ public interface CafeService {
   //MyBatis
   List<CafeDTOMybatis> getCafeListAllMybatis();
 
-  List<CafePointTest> getCafeListBoundary(double userLong, double userLat);
+  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
 
-  List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat);
+  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
-  List<CafeDTOCoordTemp> getCafesListBoundary3000(double userLong, double userLat);
-
-  void updateCoord(double longitude, double latitude, long cafe_id);
+  void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 }
 
