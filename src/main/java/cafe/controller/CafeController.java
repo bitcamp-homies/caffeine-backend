@@ -43,8 +43,16 @@ public class CafeController {
 	
 	@GetMapping(value = "/cafe/listAlllWithCoord")
 	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
-	  System.out.println("\n @PH LOG@ 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoord(userLong, userLat);
+	  
+	  return list;
+	}
+
+	@GetMapping(value = "/cafe/listBoundary3000")
+	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
+	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
+    
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary3000(userLong, userLat);
 	  
 	  return list;
 	}

@@ -19,5 +19,8 @@ public interface CafeService {
 
   List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat);
 
+  List<CafeDTOCoordTemp> getCafesListBoundary3000(double userLong, double userLat);
+
   void updateCoord(double longitude, double latitude, long cafe_id);
 }
+

@@ -39,6 +39,7 @@ public class CafeServiceImpl implements CafeService {
     
     return list;
   }
+ 
   
   @Override
   public List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat) {
@@ -46,6 +47,13 @@ public class CafeServiceImpl implements CafeService {
     List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoord(userLong, userLat);
     return list;
     
+  }
+  
+  @Override
+  public List<CafeDTOCoordTemp> getCafesListBoundary3000(double userLong, double userLat) {
+  
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000(userLong, userLat);
+    return list;
   }
   
   @Override
