@@ -11,6 +11,7 @@ import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.SelectMapper;
+import cafe.repository.mybatis.UpdateMapper;
 
 @Service
 public class CafeServiceImpl implements CafeService {
@@ -20,6 +21,9 @@ public class CafeServiceImpl implements CafeService {
 
   @Autowired
   private SelectMapper selectMapper;
+  
+  @Autowired
+  private UpdateMapper updateMapper;
 	
 	@Override
 	public List<CafeDTO> getCafeListAll() {
@@ -32,26 +36,26 @@ public class CafeServiceImpl implements CafeService {
     return selectMapper.getCafeListAll();
   }
   
+ 
   @Override
-  public List<CafePointTest> getCafeListBoundary(double userLong, double userLat) {
+  public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat) {
     
-    List<CafePointTest> list = selectMapper.getCafeListBoundary(userLong, userLat);
-    
-    return list;
-  }
-  
-  @Override
-  public List<CafeDTOCoordTemp> getCafesListWithCoord(double userLong, double userLat) {
-    
-    List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoord(userLong, userLat);
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoordMybatis(userLong, userLat);
     return list;
     
   }
   
   @Override
-  public void updateCoord(double longitude, double latitude, long cafe_id) {
+  public List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat) {
+  
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000Mybatis(userLong, userLat);
+    return list;
+  }
+  
+  @Override
+  public void updateCoordMybatis(double longitude, double latitude, long cafe_id) {
     
-    selectMapper.updateCoord(longitude, latitude, cafe_id);
+    updateMapper.updateCoordMybatis(longitude, latitude, cafe_id);
     
     return ;
   }
