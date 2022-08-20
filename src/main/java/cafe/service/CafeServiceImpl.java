@@ -10,6 +10,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
 import cafe.repository.mybatis.SelectMapper;
@@ -47,7 +48,7 @@ public String NickNameCheck(Map<String, String> map) {
 }
 
 @Override
-public String EmailCheck(Map<String, String> map) {
+public UsersDTO EmailCheck(Map<String, String> map) {
 	return selectMapper.EmailCheck(map);
 	}
 
@@ -79,4 +80,11 @@ public int createMember(Map<String, String> map) {
     
     return ;
   }
+
+@Override
+public UsersDTO Login(Map<String, String> map) {
+	UsersDTO userDTO = selectMapper.Login(map);
+	System.out.println(userDTO);
+	return userDTO;
+}
 }

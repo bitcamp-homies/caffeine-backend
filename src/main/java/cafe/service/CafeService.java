@@ -7,6 +7,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.UsersDTO;
 
 public interface CafeService {
 
@@ -20,7 +21,7 @@ public interface CafeService {
   public String NickNameCheck(Map<String, String> map);
   
   //MyBatis
-  public String EmailCheck(Map<String, String> map);
+  public UsersDTO EmailCheck(Map<String, String> map);
   //My Batis
   public int createMember(Map<String, String> map);
 
@@ -30,5 +31,7 @@ public interface CafeService {
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
+
+  UsersDTO Login(Map<String, String> map);
 }
 

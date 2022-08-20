@@ -14,6 +14,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
 @RestController
@@ -55,14 +56,14 @@ public class CafeController {
   }
   	@GetMapping(value = "/cafe/EmailCheck")
 	public String EmailCheck(@RequestParam Map<String,String>map) {
-		 String check = cafeService.EmailCheck(map);
-		 String findNickName;
-		  if(check == null) {
-			  findNickName = "ok";
+		UsersDTO userDTO = cafeService.EmailCheck(map);
+		 String findEmail;
+		  if(userDTO == null) {
+			  findEmail = "ok";
 		  }else {
-			  findNickName = "fail";
+			  findEmail = "fail";
 		  }
-		return findNickName;
+		return findEmail;
 	}
   	
   	
@@ -79,6 +80,13 @@ public class CafeController {
   		System.out.println(map);
   		return cafeService.createMember(map);
   	}
+  	
+  	@PostMapping(value ="/cafe/Login")
+  	public UsersDTO Login(@RequestParam Map<String,String>map) {
+  		UsersDTO userDTO = cafeService.Login(map);
+  		return userDTO;
+  	}
+  	
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
