@@ -86,7 +86,7 @@ public class CafeController {
   		UsersDTO userDTO = cafeService.Login(map);
   		return userDTO;
   	}
-  	
+  	 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
