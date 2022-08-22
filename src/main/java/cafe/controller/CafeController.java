@@ -69,13 +69,10 @@ public class CafeController {
   	
   	@PostMapping(value ="/cafe/createMember")
   	public int createMember(@RequestParam Map<String,String>map) {
-  		String sung = map.get("sung");
-  		String name = map.get("name");
   		String user_type = map.get("user_type");
   		if(user_type == "") {
   			user_type = "NomalUser";
   		}
-  		map.put("name", sung+name);
   		map.put("user_type", user_type);
   		System.out.println(map);
   		return cafeService.createMember(map);
