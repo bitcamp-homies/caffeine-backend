@@ -35,13 +35,6 @@ public class CafeDTO {
 	@Column(name="address4", nullable = true, unique = true, length = 200)
 	private String address4;
 
-// cafes_pics added
-  @Column(name="img_file", nullable = false, unique = true, length = 200)
-	private String img_file;
-
-	@Column(name="file_path", nullable = true, unique = true, length = 50)
-	private String file_path;
-
 //	@Column(name="coordinate", nullable=true, unique = true)
 //	private Point coordinate;
 
