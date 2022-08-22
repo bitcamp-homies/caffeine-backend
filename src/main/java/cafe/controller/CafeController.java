@@ -1,6 +1,7 @@
 package cafe.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
 @RestController
@@ -38,7 +40,53 @@ public class CafeController {
 	  
 	  return list;
 	}
-
+  
+  
+  @GetMapping(value = "/cafe/NickNameCheck")
+  public String NickNameCheck(@RequestParam Map<String,String>map) {
+	  String check = cafeService.NickNameCheck(map);
+	  String findNickName;
+	  if(check == null) {
+		  findNickName = "ok";
+	  }else {
+		  findNickName = "fail";
+	  }
+	  
+	  return findNickName;
+  }
+  	@GetMapping(value = "/cafe/EmailCheck")
+	public String EmailCheck(@RequestParam Map<String,String>map) {
+		UsersDTO userDTO = cafeService.EmailCheck(map);
+		 String findEmail;
+		  if(userDTO == null) {
+			  findEmail = "ok";
+		  }else {
+			  findEmail = "fail";
+		  }
+		return findEmail;
+	}
+  	
+  	
+  	@PostMapping(value ="/cafe/createMember")
+  	public int createMember(@RequestParam Map<String,String>map) {
+  		String sung = map.get("sung");
+  		String name = map.get("name");
+  		String user_type = map.get("user_type");
+  		if(user_type == "") {
+  			user_type = "NomalUser";
+  		}
+  		map.put("name", sung+name);
+  		map.put("user_type", user_type);
+  		System.out.println(map);
+  		return cafeService.createMember(map);
+  	}
+  	
+  	@PostMapping(value ="/cafe/Login")
+  	public UsersDTO Login(@RequestParam Map<String,String>map) {
+  		UsersDTO userDTO = cafeService.Login(map);
+  		return userDTO;
+  	}
+  	 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
