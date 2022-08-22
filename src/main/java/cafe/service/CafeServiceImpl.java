@@ -27,13 +27,17 @@ public class CafeServiceImpl implements CafeService {
 	
 	@Override
 	public List<CafeDTO> getCafeListAll() {
-		
 		return cafeRepository.getCafeListAllGangnam();
 	}
-
+  
   @Override
   public List<CafeDTOMybatis> getCafeListAllMybatis() {
     return selectMapper.getCafeListAll();
+  }
+
+  @Override
+  public List<CafeDTOMybatis> getCafeDistLocation() {
+    return selectMapper.getCafeDistLocation();
   }
   
  

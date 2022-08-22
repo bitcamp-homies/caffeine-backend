@@ -26,12 +26,17 @@ public class CafeController {
 	public List<CafeDTO> getCafeListAll() {
 		return cafeService.getCafeListAll();
 	}
-	
+
 	@GetMapping(value = "/cafe/listAllMybatis")
 	public List<CafeDTOMybatis> getCafeIdOne() {
 		return cafeService.getCafeListAllMybatis();
 	}
-	
+
+	@GetMapping(value = "/cafe/cafeDistLocation")
+	public List<CafeDTOMybatis> getCafeDistLocation() {
+		return cafeService.getCafeDistLocation();
+	}
+
 	@GetMapping(value = "/cafe/listAlllWithCoordMybatis")
 	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoordMybatis(userLong, userLat);

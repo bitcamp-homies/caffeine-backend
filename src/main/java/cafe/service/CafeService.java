@@ -15,6 +15,10 @@ public interface CafeService {
   //MyBatis
   List<CafeDTOMybatis> getCafeListAllMybatis();
 
+  List<CafeDTOMybatis> getCafeDistLocation();
+
+  List<CafeDTOMybatis> getCafeListGangNam();
+
   List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
 
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);

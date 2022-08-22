@@ -20,6 +20,9 @@ public interface SelectMapper {
   @Select("SELECT * FROM CafeDTO")
   List<CafeDTOMybatis> getCafeListAll();
 
+  @Select("SELECT * FROM CafeDTO GROUP BY address2;")
+  List<CafeDTOMybatis> getCafeDistLocation();
+
   //풍혁0818 : point mapping try1 >> success
   @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from cafes")
   List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
