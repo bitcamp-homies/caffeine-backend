@@ -1,6 +1,7 @@
 package cafe.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
+import cafe.repository.mybatis.InsertMapper;
 import cafe.repository.mybatis.SelectMapper;
 import cafe.repository.mybatis.UpdateMapper;
 
@@ -19,10 +22,13 @@ public class CafeServiceImpl implements CafeService {
 	@Autowired
 	private CafeRepository cafeRepository;
 
-  @Autowired
-  private SelectMapper selectMapper;
+	@Autowired
+  	private SelectMapper selectMapper;
+	
+	@Autowired
+	private InsertMapper insertMapper;
   
-  @Autowired
+@Autowired
   private UpdateMapper updateMapper;
 	
 	@Override
@@ -35,11 +41,20 @@ public class CafeServiceImpl implements CafeService {
     return selectMapper.getCafeListAll();
   }
 
-  @Override
-  public List<CafeDTOMybatis> getCafeDistLocation() {
-    return selectMapper.getCafeDistLocation();
-  }
-  
+@Override
+public String NickNameCheck(Map<String, String> map) {
+	return selectMapper.NickNameCheck(map);
+}
+
+@Override
+public UsersDTO EmailCheck(Map<String, String> map) {
+	return selectMapper.EmailCheck(map);
+	}
+
+@Override
+public int createMember(Map<String, String> map) {
+	return insertMapper.createMember(map);
+}
  
   @Override
   public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat) {
@@ -63,4 +78,11 @@ public class CafeServiceImpl implements CafeService {
     
     return ;
   }
+
+@Override
+public UsersDTO Login(Map<String, String> map) {
+	UsersDTO userDTO = selectMapper.Login(map);
+	System.out.println(userDTO);
+	return userDTO;
+}
 }
