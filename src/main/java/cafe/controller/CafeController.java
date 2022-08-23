@@ -71,14 +71,13 @@ public class CafeController {
   	public int createMember(@RequestParam Map<String,String>map) {
   		String user_type = map.get("user_type");
   		if(user_type == "") {
-  			user_type = "NomalUser";	
+  			user_type = "user";	
   		}else if(Integer.parseInt(user_type) == 1){
-  			user_type = "BusinessUser";
+  			user_type = "business";
   		}
   		map.put("user_type", user_type);
   		System.out.println(map);
-  		return 0;
-  		//return cafeService.createMember(map);
+  		return cafeService.createMember(map);
   	}
   	
   	@PostMapping(value ="/cafe/Login")
