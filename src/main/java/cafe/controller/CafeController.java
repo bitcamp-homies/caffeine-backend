@@ -14,6 +14,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
@@ -28,16 +29,25 @@ public class CafeController {
 	public List<CafeDTO> getCafeListAll() {
 		return cafeService.getCafeListAll();
 	}
-	
+
 	@GetMapping(value = "/cafe/listAllMybatis")
 	public List<CafeDTOMybatis> getCafeIdOne() {
 		return cafeService.getCafeListAllMybatis();
 	}
-	
+
+	@GetMapping(value = "/cafe/cafeDistLocation")
+	public List<CafeDTOMybatis> getCafeDistLocation() {
+		return cafeService.getCafeDistLocation();
+	}
+
+	@GetMapping(value = "/cafe/getCafesMenusAll")
+	public List<CafesMenuDTO> getCafesMenusAll(@RequestParam Map<Integer,String>map) {
+		return cafeService.getCafesMenusAll(map);
+	}
+
 	@GetMapping(value = "/cafe/listAlllWithCoordMybatis")
 	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoordMybatis(userLong, userLat);
-	  
 	  return list;
 	}
   
