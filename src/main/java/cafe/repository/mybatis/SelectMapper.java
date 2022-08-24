@@ -30,7 +30,7 @@ public interface SelectMapper {
   public UsersDTO EmailCheck(Map<String, String> map);
 
   //풍혁0818 : point mapping try1 >> success
-  @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from cafes")
+  @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, insta_account, about, subfolder, img_file, file_path, insta_account, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from CafeDTO")
   List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
 
   //풍혁0819 : 3000m 이내의 카페만 져오기
@@ -42,10 +42,15 @@ public interface SelectMapper {
       + "address2, "
       + "address3, "
       + "address4, "
+      + "about,"
+      + "insta_account,"
+      + "subfolder,"
+      + "img_file,"
+      + "file_path,"
       + "ST_Y(coord) AS latitude, "
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
-      + "from cafes "
+      + "from CafeDTO "
       + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
   

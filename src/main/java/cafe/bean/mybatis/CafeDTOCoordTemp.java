@@ -15,6 +15,11 @@ public class CafeDTOCoordTemp {
   private String address2;
   private String address3;
   private String address4;
+  private String insta_account;
+  private String about;
+  private String subfolder;
+  private String img_file;
+  private String file_path;
   private double longitude;
   private double latitude;
   private double distance;
