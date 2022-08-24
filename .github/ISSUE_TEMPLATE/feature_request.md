@@ -1,20 +1,15 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+name: 기능개발
+about: 새로운 기능을 개발할때 이걸로 작성해주세요~
+title: "[기능개발] "
+labels: "개발\U0001F6E0️"
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+### 개발예정인 API의 Controller Mapping을 입력해주세요.
+예) /cafe/getCafeList
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### 당 이슈에서 작업할 내용을 작성해주세요.
+1. 
+2. 
