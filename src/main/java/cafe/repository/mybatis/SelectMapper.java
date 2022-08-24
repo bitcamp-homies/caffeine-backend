@@ -6,14 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafePointTest;
 import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 @Repository

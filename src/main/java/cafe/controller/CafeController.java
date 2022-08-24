@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafePointTest;
 import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
