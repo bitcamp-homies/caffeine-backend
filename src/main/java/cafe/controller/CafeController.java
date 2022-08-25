@@ -85,7 +85,7 @@ public class CafeController {
   			user_type = "business";
   		}
   		map.put("user_type", user_type);
-  		System.out.println(map);
+  		// System.out.println(map);
   		return cafeService.createMember(map);
   	}
   	
@@ -97,10 +97,9 @@ public class CafeController {
   	 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
-	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
+	  // System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
     
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary3000Mybatis(userLong, userLat);
-	  System.out.println(list);
 	  return list;
 	}
 	
