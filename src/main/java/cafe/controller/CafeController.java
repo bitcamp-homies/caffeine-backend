@@ -85,7 +85,6 @@ public class CafeController {
   			user_type = "business";
   		}
   		map.put("user_type", user_type);
-  		// System.out.println(map);
   		return cafeService.createMember(map);
   	}
   	
