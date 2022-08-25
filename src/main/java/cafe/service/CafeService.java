@@ -34,8 +34,11 @@ public interface CafeService {
 
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
+  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary);
+
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
   UsersDTO Login(Map<String, String> map);
+
 }
 

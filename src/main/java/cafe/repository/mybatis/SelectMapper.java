@@ -52,9 +52,23 @@ public interface SelectMapper {
       + "from CafeDTO "
       + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
-  
+
+  //풍혁0826 : 변경되는 반경 ( + filter ) 적용시켜서 List가져오기
+  @Select("SELECT *, "
+      + "ST_Y(coord) AS latitude, "
+      + "ST_X(coord) AS longitude, "
+      + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
+      + "from CafeDTO "
+      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${boundary * 1000} "
+      + "ORDER BY distance "
+      )
+  public List<CafeDTOCoordTemp> getCafesListBoundary(
+      @Param("userLong") double userLong,
+      @Param("userLat")double userLat,
+      @Param("boundary")int boundary
+      );
+
   @Select("select * from users where email = #{id} and password = #{password}")
   public UsersDTO Login(Map<String, String> map);
-
 
 }

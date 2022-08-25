@@ -103,6 +103,18 @@ public class CafeController {
 	  return list;
 	}
 	
+	@GetMapping(value = "/cafe/listBoundaryMybatis")
+	public List<CafeDTOCoordTemp> getCafesListBoundary(
+	    @RequestParam(value = "userLong") double userLong, 
+	    @RequestParam(value = "userLat") double userLat, 
+	    @RequestParam(value = "boundary") int boundary
+	    )
+	{
+	  
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary);
+	  return list;
+	}
+	
 	@GetMapping(value = "/cafe/updateCoordMybatis")
 	public void updateCoord(@RequestParam(value = "longitude") double longitude, @RequestParam(value = "latitude") double latitude, @RequestParam(value = "cafe_id") long cafe_id) {
 	  cafeService.updateCoordMybatis(longitude, latitude, cafe_id);
