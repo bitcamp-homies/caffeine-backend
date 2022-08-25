@@ -1,6 +1,7 @@
 package cafe.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,8 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafePointTest;
+import cafe.bean.mybatis.CafesMenuDTO;
+import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
 @RestController
@@ -26,25 +29,79 @@ public class CafeController {
 	public List<CafeDTO> getCafeListAll() {
 		return cafeService.getCafeListAll();
 	}
-	
+
 	@GetMapping(value = "/cafe/listAllMybatis")
 	public List<CafeDTOMybatis> getCafeIdOne() {
 		return cafeService.getCafeListAllMybatis();
 	}
-	
+
+	@GetMapping(value = "/cafe/cafeDistLocation")
+	public List<CafeDTOMybatis> getCafeDistLocation() {
+		return cafeService.getCafeDistLocation();
+	}
+
+	@GetMapping(value = "/cafe/getCafesMenusAll")
+	public List<CafesMenuDTO> getCafesMenusAll(@RequestParam Map<Integer,String>map) {
+		return cafeService.getCafesMenusAll(map);
+	}
+
 	@GetMapping(value = "/cafe/listAlllWithCoordMybatis")
 	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoordMybatis(userLong, userLat);
-	  
 	  return list;
 	}
-
+  
+  
+  @GetMapping(value = "/cafe/NickNameCheck")
+  public String NickNameCheck(@RequestParam Map<String,String>map) {
+	  String check = cafeService.NickNameCheck(map);
+	  String findNickName;
+	  if(check == null) {
+		  findNickName = "ok";
+	  }else {
+		  findNickName = "fail";
+	  }
+	  
+	  return findNickName;
+  }
+  	@GetMapping(value = "/cafe/EmailCheck")
+	public String EmailCheck(@RequestParam Map<String,String>map) {
+		UsersDTO userDTO = cafeService.EmailCheck(map);
+		 String findEmail;
+		  if(userDTO == null) {
+			  findEmail = "ok";
+		  }else {
+			  findEmail = "fail";
+		  }
+		return findEmail;
+	}
+  	
+  	
+  	@PostMapping(value ="/cafe/createMember")
+  	public int createMember(@RequestParam Map<String,String>map) {
+  		String user_type = map.get("user_type");
+  		if(user_type == "") {
+  			user_type = "user";	
+  		}else if(Integer.parseInt(user_type) == 1){
+  			user_type = "business";
+  		}
+  		map.put("user_type", user_type);
+  		System.out.println(map);
+  		return cafeService.createMember(map);
+  	}
+  	
+  	@PostMapping(value ="/cafe/Login")
+  	public UsersDTO Login(@RequestParam Map<String,String>map) {
+  		UsersDTO userDTO = cafeService.Login(map);
+  		return userDTO;
+  	}
+  	 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
 	  System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
     
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary3000Mybatis(userLong, userLat);
-	  
+	  System.out.println(list);
 	  return list;
 	}
 	
