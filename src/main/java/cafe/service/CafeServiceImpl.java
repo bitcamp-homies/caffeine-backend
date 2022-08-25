@@ -92,7 +92,6 @@ public class CafeServiceImpl implements CafeService {
   @Override
   public UsersDTO Login(Map<String, String> map) {
     UsersDTO userDTO = selectMapper.Login(map);
-    System.out.println(userDTO);
     return userDTO;
   }
 }
