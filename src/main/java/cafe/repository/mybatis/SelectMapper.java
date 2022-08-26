@@ -12,50 +12,41 @@ import org.springframework.transaction.annotation.Transactional;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.UsersDTO;
+
 @Repository
 @Transactional
 @Mapper
-public interface SelectMapper { 
+public interface SelectMapper {
 
-  @Select("SELECT * FROM CafeDTO")
-  public List<CafeDTOMybatis> getCafeListAll();
+	@Select("SELECT * FROM CafeDTO")
+	public List<CafeDTOMybatis> getCafeListAll();
 
-  @Select("select * from users where nickname =#{NickName}")
-  public String NickNameCheck(Map<String, String> map);
-  
-  @Select("select * from users where email = #{Email}")
-  public UsersDTO EmailCheck(Map<String, String> map);
+	@Select("select * from users where nickname =#{NickName}")
+	public String NickNameCheck(Map<String, String> map);
 
-  @Select("SELECT * FROM CafeDTO GROUP BY address2;")
-  List<CafeDTOMybatis> getCafeDistLocation();
+	@Select("select * from users where email = #{Email}")
+	public UsersDTO EmailCheck(Map<String, String> map);
 
-  //풍혁0818 : point mapping try1 >> success
-  @Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, insta_account, about, subfolder, img_file, file_path, insta_account, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from CafeDTO")
-  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
+	@Select("SELECT * FROM CafeDTO GROUP BY address2;")
+	List<CafeDTOMybatis> getCafeDistLocation();
 
-  //풍혁0819 : 3000m 이내의 카페만 져오기
-  @Select("SELECT "
-      + "cafe_id, "
-      + "user_id, "
-      + "cafe_name, "
-      + "address1, "
-      + "address2, "
-      + "address3, "
-      + "address4, "
-      + "about,"
-      + "insta_account,"
-      + "subfolder,"
-      + "img_file,"
-      + "file_path,"
-      + "ST_Y(coord) AS latitude, "
-      + "ST_X(coord) AS longitude, "
-      + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
-      + "from CafeDTO "
-      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
-  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
-  
-  @Select("select * from users where email = #{id} and password = #{password}")
-  public UsersDTO Login(Map<String, String> map);
+	// 풍혁0818 : point mapping try1 >> success
+	@Select("SELECT cafe_id, user_id, cafe_name, address1, address2, address3, address4, insta_account, about, subfolder, img_file, file_path, insta_account, ST_Y(coord) AS latitude, ST_X(coord) AS longitude, ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance from CafeDTO")
+	List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong") double userLong,
+			@Param("userLat") double userLat);
 
+	// 풍혁0819 : 3000m 이내의 카페만 져오기
+	@Select("SELECT " + "cafe_id, " + "user_id, " + "cafe_name, " + "address1, " + "address2, " + "address3, "
+			+ "address4, " + "about," + "insta_account," + "subfolder," + "img_file," + "file_path,"
+			+ "ST_Y(coord) AS latitude, " + "ST_X(coord) AS longitude, "
+			+ "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance " + "from CafeDTO "
+			+ "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
+	List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong") double userLong,
+			@Param("userLat") double userLat);
 
+	@Select("select * from users where email = #{id} and password = #{password}")
+	public UsersDTO Login(Map<String, String> map);
+
+	@Select("select cafe_id from like_cafes where list_id = (select list_id from like_lists where user_id = (select user_id from users where email = #{email}))")
+	public List<Map<Object, Object>> getLikeList(@Param("email")String email);
 }

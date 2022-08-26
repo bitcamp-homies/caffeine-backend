@@ -25,18 +25,23 @@ public interface CafeService {
 	// My Batis
 	public int createMember(Map<String, String> map);
 
+	//수정 : 회원가입시 임의로 관심목록 카페 한개 추가
 	public void makeList(String email);
 
 	public void makeCafeList(String email, int randNum);
+	
+	//관심목록 얻어오기
+	public List<Map<Object, Object>> getLikeList(String email);
 
-	List<CafeDTOMybatis> getCafeDistLocation();
+	public List<CafeDTOMybatis> getCafeDistLocation();
 
-	List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
+	public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
 
-	List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
+	public List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
-	void updateCoordMybatis(double longitude, double latitude, long cafe_id);
+	public void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
-	UsersDTO Login(Map<String, String> map);
+	public UsersDTO Login(Map<String, String> map);
+
 
 }

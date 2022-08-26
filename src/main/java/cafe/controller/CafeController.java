@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,11 +93,6 @@ public class CafeController {
 	public void makeList(@RequestParam Map<String, String> map){
 		String email = map.get("email");
 		cafeService.makeList(email);
-	}
-	
-	@PostMapping(value = "/cafe/makeCafeList")
-	public void makeCafeList(@RequestParam Map<String, String> map){
-		String email = map.get("email");
 		int randNum = (int)(Math.random() * 645 + 1);
 		cafeService.makeCafeList(email, randNum);
 	}
@@ -117,6 +113,12 @@ public class CafeController {
 		cafeService.updateCoordMybatis(longitude, latitude, cafe_id);
 
 		return;
+	}
+	
+	@PostMapping(value ="/cafe/getLikeList")
+	public List<Map<Object, Object>> getLikeList(@RequestParam(value = "email")String email){
+		System.out.println(email);
+		return cafeService.getLikeList(email);
 	}
 
 }

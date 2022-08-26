@@ -72,6 +72,12 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
+	public List<Map<Object, Object>> getLikeList(String email) {
+		System.out.println(selectMapper.getLikeList(email));
+		return selectMapper.getLikeList(email);
+	}
+
+	@Override
 	public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat) {
 
 		List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoordMybatis(userLong, userLat);
