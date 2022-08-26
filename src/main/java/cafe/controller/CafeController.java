@@ -85,7 +85,6 @@ public class CafeController {
 			user_type = "business";
 		}
 		map.put("user_type", user_type);
-		// System.out.println(map);
 		return cafeService.createMember(map);
 	}
 
@@ -96,8 +95,9 @@ public class CafeController {
 	}
 
 	@PostMapping(value = "/cafe/makeList")
-	public void makeList(@RequestParam Map<String,String>map){
-		System.out.println(map);
+	public void makeList(@RequestParam Map<String, String> map){
+		String user_id = map.get("email");
+		cafeService.makeList(user_id);
 	}
 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")

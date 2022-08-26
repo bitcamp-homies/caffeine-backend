@@ -67,6 +67,11 @@ public class CafeServiceImpl implements CafeService {
   }
 
   @Override
+  public void makeList(String user_id){
+    insertMapper.makeList(user_id);
+  }
+
+  @Override
   public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat) {
 
     List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoordMybatis(userLong, userLat);

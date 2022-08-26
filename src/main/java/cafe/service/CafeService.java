@@ -25,6 +25,7 @@ public interface CafeService {
   //My Batis
   public int createMember(Map<String, String> map);
 
+  public void makeList(String user_id);
 
   List<CafeDTOMybatis> getCafeDistLocation();
   
@@ -37,5 +38,6 @@ public interface CafeService {
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
   UsersDTO Login(Map<String, String> map);
+  
 }
 
