@@ -2,6 +2,7 @@ package cafe.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,8 +62,13 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public void makeList(String user_id) {
-		insertMapper.makeList(user_id);
+	public void makeList(String email) {
+		insertMapper.makeList(email);
+	}
+
+	@Override
+	public void makeCafeList(String email, int randNum) {
+		insertMapper.makeCafeList(email, randNum);
 	}
 
 	@Override
@@ -93,4 +99,5 @@ public class CafeServiceImpl implements CafeService {
 		UsersDTO userDTO = selectMapper.Login(map);
 		return userDTO;
 	}
+
 }

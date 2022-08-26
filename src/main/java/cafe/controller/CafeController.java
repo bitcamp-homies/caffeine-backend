@@ -90,8 +90,15 @@ public class CafeController {
 
 	@PostMapping(value = "/cafe/makeList")
 	public void makeList(@RequestParam Map<String, String> map){
-		String user_id = map.get("email");
-		cafeService.makeList(user_id);
+		String email = map.get("email");
+		cafeService.makeList(email);
+	}
+	
+	@PostMapping(value = "/cafe/makeCafeList")
+	public void makeCafeList(@RequestParam Map<String, String> map){
+		String email = map.get("email");
+		int randNum = (int)(Math.random() * 645 + 1);
+		cafeService.makeCafeList(email, randNum);
 	}
 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")

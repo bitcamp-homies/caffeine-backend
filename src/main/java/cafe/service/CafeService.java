@@ -25,7 +25,9 @@ public interface CafeService {
 	// My Batis
 	public int createMember(Map<String, String> map);
 
-	public void makeList(String user_id);
+	public void makeList(String email);
+
+	public void makeCafeList(String email, int randNum);
 
 	List<CafeDTOMybatis> getCafeDistLocation();
 
