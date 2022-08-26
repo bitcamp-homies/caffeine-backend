@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafesMenuDTO;
+import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.UsersDTO;
 @Repository
 @Transactional
@@ -20,9 +20,6 @@ public interface SelectMapper {
 
   @Select("SELECT * FROM CafeDTO")
   public List<CafeDTOMybatis> getCafeListAll();
-
-  @Select("select * from allproduct where cafe_id = ${cafe_id}")
-  public List<CafesMenuDTO> getCafesMenusAll(Map<Integer, String> map);
 
   @Select("select * from users where nickname =#{NickName}")
   public String NickNameCheck(Map<String, String> map);
@@ -60,6 +57,16 @@ public interface SelectMapper {
   
   @Select("select * from users where email = #{id} and password = #{password}")
   public UsersDTO Login(Map<String, String> map);
+  
+  @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
+  		+ "FROM cafes c\r\n"
+  		+ "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
+  		+ "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
+  		+ "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
+  		+ "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
+  		+ "WHERE c.cafe_id = ${cafe_id};\r\n"
+  		+ "")
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
 
 }
