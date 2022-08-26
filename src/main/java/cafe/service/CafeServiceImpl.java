@@ -83,9 +83,26 @@ public class CafeServiceImpl implements CafeService {
   }
   
   @Override
-  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary) {
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter) {
     
-    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary);
+    int openFilterNum, petFilterNum, parkingFilterNum;
+    if(openFilter) {
+      openFilterNum = 1;
+    }else {
+      openFilterNum = 0;
+    }
+    if(petFilter) {
+      petFilterNum = 1;
+    }else {
+      petFilterNum = 0;
+    }
+    if(parkingFilter) {
+      parkingFilterNum = 1;
+    }else {
+      parkingFilterNum = 0;
+    }
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum, petFilterNum, parkingFilterNum);
     return list;
   }
 

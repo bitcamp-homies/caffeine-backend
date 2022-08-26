@@ -59,13 +59,20 @@ public interface SelectMapper {
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
       + "from CafeDTO "
-      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${boundary * 1000} "
+      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${boundary * 1000} AND "
+      + "IF(${openFilter}, opentime <= HOUR(NOW())*100+MINUTE(NOW()) AND closetime >= HOUR(NOW())*100+MINUTE(NOW()), opentime > 0) AND "
+      + "IF(${petFilter}, pet='Y', (pet='Y' || pet='N')) AND "
+      + "IF(${parkingFilter}, parking='Y', (parking='N' || parking='Y')) "
       + "ORDER BY distance "
       )
+  
   public List<CafeDTOCoordTemp> getCafesListBoundary(
       @Param("userLong") double userLong,
       @Param("userLat")double userLat,
-      @Param("boundary")int boundary
+      @Param("boundary")int boundary,
+      @Param("openFilter")int openFilterNum, 
+      @Param("petFilter")int petFilterNum, 
+      @Param("parkingFilter")int parkingFilterNum
       );
 
   @Select("select * from users where email = #{id} and password = #{password}")

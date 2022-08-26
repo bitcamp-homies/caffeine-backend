@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafePointTest;
 import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
@@ -107,11 +107,14 @@ public class CafeController {
 	public List<CafeDTOCoordTemp> getCafesListBoundary(
 	    @RequestParam(value = "userLong") double userLong, 
 	    @RequestParam(value = "userLat") double userLat, 
-	    @RequestParam(value = "boundary") int boundary
+	    @RequestParam(value = "boundary") int boundary,
+	    @RequestParam(value = "openFilter") Boolean openFilter,
+	    @RequestParam(value = "petFilter") Boolean petFilter,
+	    @RequestParam(value = "parkingFilter") Boolean parkingFilter
 	    )
 	{
 	  
-	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary);
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary, openFilter, petFilter, parkingFilter);
 	  return list;
 	}
 	
