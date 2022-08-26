@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafesMenuDTO;
+import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
@@ -38,11 +38,6 @@ public class CafeController {
 	@GetMapping(value = "/cafe/cafeDistLocation")
 	public List<CafeDTOMybatis> getCafeDistLocation() {
 		return cafeService.getCafeDistLocation();
-	}
-
-	@GetMapping(value = "/cafe/getCafesMenusAll")
-	public List<CafesMenuDTO> getCafesMenusAll(@RequestParam Map<Integer,String>map) {
-		return cafeService.getCafesMenusAll(map);
 	}
 
 	@GetMapping(value = "/cafe/listAlllWithCoordMybatis")
@@ -86,7 +81,6 @@ public class CafeController {
   			user_type = "business";
   		}
   		map.put("user_type", user_type);
-  		System.out.println(map);
   		return cafeService.createMember(map);
   	}
   	
@@ -118,6 +112,10 @@ public class CafeController {
 	  return list;
 	}
 	
+	@GetMapping(value = "/cafe/getCafeitemList")
+	public List<CafeitemDTO>getCafeitemList(@RequestParam Map<String,String>map){
+		return cafeService.getCafeitemList(map);
+	}
 	@GetMapping(value = "/cafe/updateCoordMybatis")
 	public void updateCoord(@RequestParam(value = "longitude") double longitude, @RequestParam(value = "latitude") double latitude, @RequestParam(value = "cafe_id") long cafe_id) {
 	  cafeService.updateCoordMybatis(longitude, latitude, cafe_id);
