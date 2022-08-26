@@ -96,4 +96,10 @@ public class CafeServiceImpl implements CafeService {
 public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
 	return selectMapper.getCafeitemList(map);
 }
+
+
+@Override
+public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+	return selectMapper.getCafeitem(map);
+}
 }

@@ -58,15 +58,24 @@ public interface SelectMapper {
   @Select("select * from users where email = #{id} and password = #{password}")
   public UsersDTO Login(Map<String, String> map);
   
+  @Select("SELECT c.cafe_id, p.*, pi2.*,cpli.recommended\r\n"
+  		+ "FROM cafes c\r\n"
+  		+ "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
+  		+ "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
+  		+ "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
+  		+ "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
+  		+ "WHERE c.cafe_id = ${cafe_id}")
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+
+  
   @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
   		+ "FROM cafes c\r\n"
   		+ "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
   		+ "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
   		+ "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
   		+ "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
-  		+ "WHERE c.cafe_id = ${cafe_id};\r\n"
-  		+ "")
-  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+  		+ "WHERE c.cafe_id = ${cafe_id} and pi2.product_id = ${product_id};")
+  public List<CafeitemDTO> getCafeitem(Map<String, String> map);
 
 
 }

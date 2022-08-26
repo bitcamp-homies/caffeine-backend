@@ -107,5 +107,8 @@ public class CafeController {
 	  
 	  return ;
 	}
-	
+	@GetMapping(value ="/cafe/getCafeitem")
+	public List<CafeitemDTO>getCafeitem(@RequestParam Map<String,String>map){
+		return cafeService.getCafeitem(map);
+	}
 }

@@ -37,5 +37,7 @@ public interface CafeService {
   UsersDTO Login(Map<String, String> map);
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+
+List<CafeitemDTO> getCafeitem(Map<String, String> map);
 }
 
