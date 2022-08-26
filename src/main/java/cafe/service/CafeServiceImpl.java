@@ -76,6 +76,13 @@ public class CafeServiceImpl implements CafeService {
     List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000Mybatis(userLong, userLat);
     return list;
   }
+  
+  @Override
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary) {
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary);
+    return list;
+  }
 
   @Override
   public void updateCoordMybatis(double longitude, double latitude, long cafe_id) {

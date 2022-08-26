@@ -25,17 +25,19 @@ public interface CafeService {
   //My Batis
   public int createMember(Map<String, String> map);
 
-
   List<CafeDTOMybatis> getCafeDistLocation();
 
   List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
 
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
+  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary);
+
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
   UsersDTO Login(Map<String, String> map);
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+
 }
 
