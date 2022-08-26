@@ -78,9 +78,26 @@ public class CafeServiceImpl implements CafeService {
   }
   
   @Override
-  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary) {
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter) {
     
-    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary);
+    int openFilterNum, petFilterNum, parkingFilterNum;
+    if(openFilter) {
+      openFilterNum = 1;
+    }else {
+      openFilterNum = 0;
+    }
+    if(petFilter) {
+      petFilterNum = 1;
+    }else {
+      petFilterNum = 0;
+    }
+    if(parkingFilter) {
+      parkingFilterNum = 1;
+    }else {
+      parkingFilterNum = 0;
+    }
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum, petFilterNum, parkingFilterNum);
     return list;
   }
 
@@ -97,10 +114,16 @@ public class CafeServiceImpl implements CafeService {
     UsersDTO userDTO = selectMapper.Login(map);
     return userDTO;
   }
+  
+  @Override
+  public void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id) {
+    updateMapper.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+    
+  }
 
-
-@Override
-public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
-	return selectMapper.getCafeitemList(map);
-}
+  @Override
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+  	return selectMapper.getCafeitemList(map);
+  }
+  
 }

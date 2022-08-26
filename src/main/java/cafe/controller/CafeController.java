@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,11 +101,14 @@ public class CafeController {
 	public List<CafeDTOCoordTemp> getCafesListBoundary(
 	    @RequestParam(value = "userLong") double userLong, 
 	    @RequestParam(value = "userLat") double userLat, 
-	    @RequestParam(value = "boundary") int boundary
+	    @RequestParam(value = "boundary") int boundary,
+	    @RequestParam(value = "openFilter") Boolean openFilter,
+	    @RequestParam(value = "petFilter") Boolean petFilter,
+	    @RequestParam(value = "parkingFilter") Boolean parkingFilter
 	    )
 	{
 	  
-	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary);
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary, openFilter, petFilter, parkingFilter);
 	  return list;
 	}
 	
@@ -118,5 +122,17 @@ public class CafeController {
 	  
 	  return ;
 	}
+	
+	@GetMapping(value = "/cafe/updateCafeinfo")
+	public void updateCafeinfo(
+	    @RequestParam(value = "opentime") int opentime, 
+	    @RequestParam(value = "closetime") int closetime, 
+	    @RequestParam(value = "pet") String pet,
+	    @RequestParam(value = "parking") String parking,
+	    @RequestParam(value = "cafe_id") int cafe_id
+	    )
+	  {
+	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+  	}
 	
 }
