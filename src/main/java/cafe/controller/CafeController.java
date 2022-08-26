@@ -122,4 +122,16 @@ public class CafeController {
 	  return ;
 	}
 	
+	@GetMapping(value = "/cafe/updateCafeinfo")
+	public void updateCafeinfo(
+	    @RequestParam(value = "opentime") int opentime, 
+	    @RequestParam(value = "closetime") int closetime, 
+	    @RequestParam(value = "pet") String pet,
+	    @RequestParam(value = "parking") String parking,
+	    @RequestParam(value = "cafe_id") int cafe_id
+	    )
+	  {
+	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+  	}
+	
 }

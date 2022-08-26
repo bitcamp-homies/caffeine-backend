@@ -103,4 +103,10 @@ public class CafeServiceImpl implements CafeService {
     System.out.println(userDTO);
     return userDTO;
   }
+  
+  @Override
+  public void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id) {
+    updateMapper.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+    
+  }
 }

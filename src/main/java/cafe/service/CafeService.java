@@ -40,5 +40,7 @@ public interface CafeService {
 
   UsersDTO Login(Map<String, String> map);
 
+  void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id);
+
 }
 
