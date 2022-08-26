@@ -16,6 +16,6 @@ public interface InsertMapper {
 			+ "values(#{user_type}, #{insta_account}, #{name}, #{nickname}, #{email}, #{password}, #{business_name}, #{business_reg_num}, #{business_address})")
 	public int createMember(Map<String, String> map);
   
-	@Insert("insert into like_lists(user_id, list_name) values (#{user_id},'내가 좋아하는 카페')")
+	@Insert("insert into like_lists(user_id, list_name) values ((select user_id from users where email = #{user_id}) ,'내가 좋아하는 카페')")
 	public void makeList(String user_id);
 }

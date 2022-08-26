@@ -6,38 +6,35 @@ import java.util.Map;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 
 public interface CafeService {
 
-  //JPA
+	// JPA
 	List<CafeDTO> getCafeListAll();
 
-  //MyBatis
-  List<CafeDTOMybatis> getCafeListAllMybatis();
-  
-  //MyBatis
-  public String NickNameCheck(Map<String, String> map);
-  
-  //MyBatis
-  public UsersDTO EmailCheck(Map<String, String> map);
-  //My Batis
-  public int createMember(Map<String, String> map);
+	// MyBatis
+	List<CafeDTOMybatis> getCafeListAllMybatis();
 
-  public void makeList(String user_id);
+	// MyBatis
+	public String NickNameCheck(Map<String, String> map);
 
-  List<CafeDTOMybatis> getCafeDistLocation();
-  
-  List<CafesMenuDTO> getCafesMenusAll(Map<Integer, String> map);
+	// MyBatis
+	public UsersDTO EmailCheck(Map<String, String> map);
 
-  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
+	// My Batis
+	public int createMember(Map<String, String> map);
 
-  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
+	public void makeList(String user_id);
 
-  void updateCoordMybatis(double longitude, double latitude, long cafe_id);
+	List<CafeDTOMybatis> getCafeDistLocation();
 
-  UsersDTO Login(Map<String, String> map);
-  
+	List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
+
+	List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
+
+	void updateCoordMybatis(double longitude, double latitude, long cafe_id);
+
+	UsersDTO Login(Map<String, String> map);
+
 }
-

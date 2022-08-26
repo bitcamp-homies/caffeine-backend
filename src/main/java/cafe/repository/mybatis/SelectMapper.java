@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafesMenuDTO;
 import cafe.bean.mybatis.UsersDTO;
 @Repository
 @Transactional
@@ -20,9 +19,6 @@ public interface SelectMapper {
 
   @Select("SELECT * FROM CafeDTO")
   public List<CafeDTOMybatis> getCafeListAll();
-
-  @Select("select * from allproduct where cafe_id = ${cafe_id}")
-  public List<CafesMenuDTO> getCafesMenusAll(Map<Integer, String> map);
 
   @Select("select * from users where nickname =#{NickName}")
   public String NickNameCheck(Map<String, String> map);
