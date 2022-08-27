@@ -1,5 +1,6 @@
 package cafe.controller;
 
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,9 +102,23 @@ public class CafeController {
   	 
 	@GetMapping(value = "/cafe/listBoundary3000Mybatis")
 	public List<CafeDTOCoordTemp> getCafesListBoundary3000(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
-	  // System.out.println("\n @PH LOG@ listBoundary3000... 넘어온 사용자 경위도 : " + userLong + "\t" + userLat);
-    
+	  
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary3000Mybatis(userLong, userLat);
+	  return list;
+	}
+	
+	@GetMapping(value = "/cafe/listBoundaryMybatis")
+	public List<CafeDTOCoordTemp> getCafesListBoundary(
+	    @RequestParam(value = "userLong") double userLong, 
+	    @RequestParam(value = "userLat") double userLat, 
+	    @RequestParam(value = "boundary") int boundary,
+	    @RequestParam(value = "openFilter") Boolean openFilter,
+	    @RequestParam(value = "petFilter") Boolean petFilter,
+	    @RequestParam(value = "parkingFilter") Boolean parkingFilter
+	    )
+	{
+	  
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary, openFilter, petFilter, parkingFilter);
 	  return list;
 	}
 	
@@ -184,5 +200,17 @@ public class CafeController {
 	public UsersDTO getMember(@RequestParam Map<String,String>map) {
 		return cafeService.getMember(map);
 	}
+	
+	@GetMapping(value = "/cafe/updateCafeinfo")
+	public void updateCafeinfo(
+	    @RequestParam(value = "opentime") int opentime, 
+	    @RequestParam(value = "closetime") int closetime, 
+	    @RequestParam(value = "pet") String pet,
+	    @RequestParam(value = "parking") String parking,
+	    @RequestParam(value = "cafe_id") int cafe_id
+	    )
+	  {
+	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+  	}
 	
 }
