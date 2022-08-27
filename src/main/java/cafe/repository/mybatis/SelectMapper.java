@@ -76,6 +76,8 @@ public interface SelectMapper {
   		+ "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
   		+ "WHERE c.cafe_id = ${cafe_id} and pi2.product_id = ${product_id};")
   public List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  @Select("Select * from users where email = #{user_id}")
+  public UsersDTO getMember(Map<String, String> map);
 
 
 }

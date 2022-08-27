@@ -102,4 +102,10 @@ public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
 public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
 	return selectMapper.getCafeitem(map);
 }
+
+
+@Override
+public UsersDTO getMember(Map<String, String> map) {
+	return selectMapper.getMember(map);
+}
 }
