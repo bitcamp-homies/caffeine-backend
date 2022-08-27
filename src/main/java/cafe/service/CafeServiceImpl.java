@@ -77,6 +77,30 @@ public class CafeServiceImpl implements CafeService {
     List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000Mybatis(userLong, userLat);
     return list;
   }
+  
+  @Override
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter) {
+    
+    int openFilterNum, petFilterNum, parkingFilterNum;
+    if(openFilter) {
+      openFilterNum = 1;
+    }else {
+      openFilterNum = 0;
+    }
+    if(petFilter) {
+      petFilterNum = 1;
+    }else {
+      petFilterNum = 0;
+    }
+    if(parkingFilter) {
+      parkingFilterNum = 1;
+    }else {
+      parkingFilterNum = 0;
+    }
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum, petFilterNum, parkingFilterNum);
+    return list;
+  }
 
   @Override
   public void updateCoordMybatis(double longitude, double latitude, long cafe_id) {
@@ -91,6 +115,13 @@ public class CafeServiceImpl implements CafeService {
     UsersDTO userDTO = selectMapper.Login(map);
     return userDTO;
   }
+  
+  @Override
+  public void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id) {
+    updateMapper.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+    
+  }
+
 
 
 @Override
@@ -111,6 +142,7 @@ public UsersDTO getMember(Map<String, String> map) {
 }
 
 
+
 @Override
 public void InsertProfileimg(Map<String, String> map) {
 		insertMapper.InsertProfileimg(map);
@@ -127,4 +159,5 @@ public UserProfileDTO selectProfileimg(Map<String, String> map) {
 public void updateProfileimg(Map<String, String> map) {
 	updateMapper.updateProfileimg(map);
 }
+
 }
