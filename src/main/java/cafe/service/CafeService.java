@@ -41,5 +41,10 @@ public interface CafeService {
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+
+List<CafeitemDTO> getCafeitem(Map<String, String> map);
+
+UsersDTO getMember(Map<String, String> map);
+
 }
 

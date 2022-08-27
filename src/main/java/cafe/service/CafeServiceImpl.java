@@ -121,9 +121,23 @@ public class CafeServiceImpl implements CafeService {
     
   }
 
-  @Override
-  public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
-  	return selectMapper.getCafeitemList(map);
-  }
-  
+
+
+@Override
+public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+	return selectMapper.getCafeitemList(map);
+}
+
+
+@Override
+public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+	return selectMapper.getCafeitem(map);
+}
+
+
+@Override
+public UsersDTO getMember(Map<String, String> map) {
+	return selectMapper.getMember(map);
+}
+
 }
