@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 @Repository
 @Transactional
@@ -78,6 +79,9 @@ public interface SelectMapper {
   public List<CafeitemDTO> getCafeitem(Map<String, String> map);
   @Select("Select * from users where email = #{user_id}")
   public UsersDTO getMember(Map<String, String> map);
+  
+  @Select("Select * from users_profile_img where profile_id = #{user_id}")
+  public UserProfileDTO selectProfileimg(Map<String, String> map);
 
 
 }
