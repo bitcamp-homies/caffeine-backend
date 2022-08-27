@@ -6,8 +6,7 @@ import java.util.Map;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafePointTest;
-import cafe.bean.mybatis.CafesMenuDTO;
+import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.UsersDTO;
 
 public interface CafeService {
@@ -27,8 +26,6 @@ public interface CafeService {
   public int createMember(Map<String, String> map);
 
   List<CafeDTOMybatis> getCafeDistLocation();
-  
-  List<CafesMenuDTO> getCafesMenusAll(Map<Integer, String> map);
 
   List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat);
 
@@ -39,6 +36,10 @@ public interface CafeService {
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
   UsersDTO Login(Map<String, String> map);
+
+  List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+
+  List<CafeitemDTO> getCafeitem(Map<String, String> map);
 
 }
 

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
-import cafe.bean.mybatis.CafePointTest;
-import cafe.bean.mybatis.CafesMenuDTO;
+import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
@@ -36,11 +35,7 @@ public class CafeServiceImpl implements CafeService {
   public List<CafeDTO> getCafeListAll() {
     return cafeRepository.getCafeListAllGangnam();
   }
-  
-  @Override
-  public List<CafesMenuDTO> getCafesMenusAll(Map<Integer, String> map) {
-    return selectMapper.getCafesMenusAll(map);
-  }
+ 
 
   @Override
   public List<CafeDTOMybatis> getCafeListAllMybatis() {
@@ -100,7 +95,18 @@ public class CafeServiceImpl implements CafeService {
   @Override
   public UsersDTO Login(Map<String, String> map) {
     UsersDTO userDTO = selectMapper.Login(map);
-    System.out.println(userDTO);
     return userDTO;
   }
+
+
+@Override
+public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+	return selectMapper.getCafeitemList(map);
+}
+
+
+@Override
+public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+	return selectMapper.getCafeitem(map);
+}
 }
