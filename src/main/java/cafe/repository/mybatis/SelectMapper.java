@@ -53,13 +53,20 @@ public interface SelectMapper {
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
       + "from CafeDTO "
-      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${boundary * 1000} "
+      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${boundary * 1000} AND "
+      + "IF(${openFilter}, opentime <= HOUR(NOW())*100+MINUTE(NOW()) AND closetime >= HOUR(NOW())*100+MINUTE(NOW()), opentime > 0) AND "
+      + "IF(${petFilter}, pet='Y', (pet='Y' || pet='N')) AND "
+      + "IF(${parkingFilter}, parking='Y', (parking='N' || parking='Y')) "
       + "ORDER BY distance "
       )
+  
   public List<CafeDTOCoordTemp> getCafesListBoundary(
       @Param("userLong") double userLong,
       @Param("userLat")double userLat,
-      @Param("boundary")int boundary
+      @Param("boundary")int boundary,
+      @Param("openFilter")int openFilterNum, 
+      @Param("petFilter")int petFilterNum, 
+      @Param("parkingFilter")int parkingFilterNum
       );
 
   @Select("select * from users where email = #{id} and password = #{password}")
@@ -74,6 +81,7 @@ public interface SelectMapper {
   		+ "WHERE c.cafe_id = ${cafe_id}")
   public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+
   
   @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
   		+ "FROM cafes c\r\n"
@@ -83,5 +91,11 @@ public interface SelectMapper {
   		+ "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
   		+ "WHERE c.cafe_id = ${cafe_id} and pi2.product_id = ${product_id};")
   public List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  
+  @Select("Select * from users where email = #{user_id}")
+  public UsersDTO getMember(Map<String, String> map);
 
+  //웅비 해당제품의 정보 가져오기
+  @Select("select * from products where product_id = ${product_id}")
+  public List<CafeitemDTO> getProductInfo(String product_id);
 }

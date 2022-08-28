@@ -22,4 +22,8 @@ public class CafeDTOCoordTemp {
   private double longitude;
   private double latitude;
   private double distance;
+  private int opentime;
+  private int closetime;
+  private String pet;
+  private String parking;
 }

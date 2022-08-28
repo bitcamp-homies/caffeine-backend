@@ -1,5 +1,15 @@
 package cafe.controller;
 
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -100,11 +110,15 @@ public class CafeController {
 	public List<CafeDTOCoordTemp> getCafesListBoundary(
 	    @RequestParam(value = "userLong") double userLong, 
 	    @RequestParam(value = "userLat") double userLat, 
-	    @RequestParam(value = "boundary") int boundary
+	    @RequestParam(value = "boundary") int boundary,
+	    @RequestParam(value = "openFilter") Boolean openFilter,
+	    @RequestParam(value = "petFilter") Boolean petFilter,
+	    @RequestParam(value = "parkingFilter") Boolean parkingFilter
 	    )
 	{
 	  
-	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary);
+
+	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary, openFilter, petFilter, parkingFilter);
 	  return list;
 	}
 	
@@ -122,7 +136,86 @@ public class CafeController {
 	public List<CafeitemDTO>getCafeitem(@RequestParam Map<String,String>map){
 		return cafeService.getCafeitem(map);
 	}
+	
+	@PostMapping(value ="cafe/kakaopay")
+	public String kakaopay(@RequestParam Map<String,String>map) {
+		String cid = map.get("cid");
+		String total_amount = map.get("total_amount");
+		String item_name = map.get("item_name");
+		String quantity = map.get("quantity");
+		String partner_order_id = map.get("partner_order_id");
+		String partner_user_id = map.get("partner_user_id");
+		String vat_amount = map.get("vat_amount");
+		String tax_free_amount = map.get("tax_free_amount");
+		String approval_url = map.get("approval_url");
+		String fail_url = map.get("fail_url");
+		String cancel_url = map.get("cancel_url");
+		
+		try {
+			URL address = new URL("http://kapi.kakao.com/v1/payment/ready");
+			HttpURLConnection serverConnection = (HttpURLConnection) address.openConnection();
+			serverConnection.setRequestMethod("POST");
+			serverConnection.setRequestProperty("Authorization", "KakaoAK 12659db36fb4e183b8d2a7e1a42c8b14");
+			serverConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			serverConnection.setDoOutput(true);
+			String parameter = "cid="+cid+
+							   "&total_amount="+total_amount+
+							   "&item_name="+item_name+
+							   "&quantity="+quantity+
+							   "&partner_order_id="+partner_order_id+
+							   "&partner_user_id="+partner_user_id+
+							   "&vat_amount="+vat_amount+
+							   "&tax_free_amount="+tax_free_amount+
+							   "&approval_url="+approval_url+
+							   "&fail_url="+fail_url+
+							   "&cancel_url="+cancel_url;
+			OutputStream output = serverConnection.getOutputStream();
+			DataOutputStream dataoutput = new DataOutputStream(output);
+			dataoutput.writeBytes(parameter);
+			dataoutput.close();
+			
+			int result = serverConnection.getResponseCode();
+			
+			InputStream input;
+			if(result == 200) { //정상 통신 200
+				input = serverConnection.getInputStream();
+			}else {
+				input = serverConnection.getErrorStream();
+			}
+			InputStreamReader reader = new InputStreamReader(input); //input 된것을 읽는다.
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			return bufferedReader.readLine();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@PostMapping("/cafe/getMember")
+	public UsersDTO getMember(@RequestParam Map<String,String>map) {
+		return cafeService.getMember(map);
+	}
+	
+	@GetMapping(value = "/cafe/updateCafeinfo")
+	public void updateCafeinfo(
+	    @RequestParam(value = "opentime") int opentime, 
+	    @RequestParam(value = "closetime") int closetime, 
+	    @RequestParam(value = "pet") String pet,
+	    @RequestParam(value = "parking") String parking,
+	    @RequestParam(value = "cafe_id") int cafe_id
+	    )
+	  {
+	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+  	}
 
-	// @GetMapping(value="/order/getProductInfo")
-	// public List<ProductD
+	//웅비 해당 제품 정보 가져오기
+	@GetMapping(value="/order/getProductInfo")
+	public List<CafeitemDTO>getProductInfo(@RequestParam(value = "product_id") String product_id) {
+		return cafeService.getProductInfo(product_id);
+	}
 }
