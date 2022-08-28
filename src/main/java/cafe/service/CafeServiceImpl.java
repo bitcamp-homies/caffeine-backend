@@ -126,4 +126,32 @@ public class CafeServiceImpl implements CafeService {
   	return selectMapper.getCafeitemList(map);
   }
   
+  @Override
+  public List<UsersDTO> getAllUser() {
+    
+    return selectMapper.getAllUser();
+  }
+  
+  @Override
+  public void updateUser(
+      int user_id, 
+      int business_reg_num, 
+      String user_type, 
+      String name, 
+      String nickname,
+      String email, 
+      String password, 
+      String business_name, 
+      String business_address
+      ) 
+  {
+    updateMapper.updateUser(user_id, business_reg_num, name, nickname, email, password, business_name, business_address);
+    return ;
+  }
+  
+  @Override
+  public CafeDTO getCafeByInsta(String insta_account) {
+    
+    return selectMapper.getCafeByInsta(insta_account);
+  }
 }

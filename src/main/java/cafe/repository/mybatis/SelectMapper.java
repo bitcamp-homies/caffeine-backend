@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -82,4 +83,10 @@ public interface SelectMapper {
   		+ "")
   public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+  @Select("SELECT * from users")
+  public List<UsersDTO> getAllUser();
+  
+  @Select("SELECT * from CafeDTO WHERE insta_account = #{insta_account}")
+  public CafeDTO getCafeByInsta(@Param("insta_account")String insta_account);
+  
 }

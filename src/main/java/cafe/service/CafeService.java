@@ -41,5 +41,21 @@ public interface CafeService {
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+  List<UsersDTO> getAllUser();
+
+  void updateUser(
+      int user_id, 
+      int business_reg_num,
+      String user_type, 
+      String name, 
+      String nickname, 
+      String email,
+      String password, 
+      String business_name, 
+      String business_address
+      );
+
+  CafeDTO getCafeByInsta(String insta_account);
+
 }
 
