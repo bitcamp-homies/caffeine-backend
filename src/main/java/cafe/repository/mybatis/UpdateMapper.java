@@ -17,7 +17,7 @@ public interface UpdateMapper {
   @Update("UPDATE cafes SET COORD = POINT(${longitude}, ${latitude}) WHERE cafe_id = ${cafe_id}")
   void updateCoordMybatis(@Param("longitude")double longitude, @Param("latitude")double latitude, @Param("cafe_id")long cafe_id);
   
-  @Update("UPDATE users_profile_img SET path=#{path}, profile_img=#{img} WHERE profile_img = ${user_id}")
+  @Update("UPDATE users_profile_img SET path=#{path}, profile_img=#{img} WHERE profile_id = ${user_id}")
   void updateProfileimg(Map<String, String> map);
 
 }

@@ -197,6 +197,7 @@ public class CafeController {
 	}
 	@PostMapping("/cafe/updateProfileimg")
 	public void updateProfileimg(@RequestParam Map<String,String>map) {
+		System.out.println(map);
 		cafeService.updateProfileimg(map);
 	}
 }
