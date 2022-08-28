@@ -20,6 +20,8 @@ public interface UpdateMapper {
   @Update("UPDATE users_profile_img SET path=#{path}, profile_img=#{img} WHERE profile_img = ${user_id}")
   void updateProfileimg(Map<String, String> map);
 
+  //테스트 코멘트
+
   @Update("UPDATE cafe_info SET opentime = ${opentime}, closetime = ${closetime}, pet = #{pet}, parking = #{parking} WHERE cafe_id = ${cafe_id}")
   void updateCafeinfo(
       @Param("opentime")int opentime, 
