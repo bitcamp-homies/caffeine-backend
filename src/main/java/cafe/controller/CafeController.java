@@ -1,6 +1,5 @@
 package cafe.controller;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
@@ -31,31 +31,31 @@ import cafe.service.CafeService;
 @CrossOrigin(origins = "*")
 public class CafeController {
 
-	@Autowired
-	private CafeService cafeService;
-		
-	@GetMapping(value = "/cafe/listAll")
-	public List<CafeDTO> getCafeListAll() {
-		return cafeService.getCafeListAll();
-	}
+  @Autowired
+  private CafeService cafeService;
 
-	@GetMapping(value = "/cafe/listAllMybatis")
-	public List<CafeDTOMybatis> getCafeIdOne() {
-		return cafeService.getCafeListAllMybatis();
-	}
+  @GetMapping(value = "/cafe/listAll")
+  public List<CafeDTO> getCafeListAll() {
+    return cafeService.getCafeListAll();
+  }
 
-	@GetMapping(value = "/cafe/cafeDistLocation")
-	public List<CafeDTOMybatis> getCafeDistLocation() {
-		return cafeService.getCafeDistLocation();
-	}
+  @GetMapping(value = "/cafe/listAllMybatis")
+  public List<CafeDTOMybatis> getCafeIdOne() {
+    return cafeService.getCafeListAllMybatis();
+  }
 
-	@GetMapping(value = "/cafe/listAlllWithCoordMybatis")
-	public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong, @RequestParam(value = "userLat") double userLat){
-	  List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoordMybatis(userLong, userLat);
-	  return list;
-	}
-  
-  
+  @GetMapping(value = "/cafe/cafeDistLocation")
+  public List<CafeDTOMybatis> getCafeDistLocation() {
+    return cafeService.getCafeDistLocation();
+  }
+
+  @GetMapping(value = "/cafe/listAlllWithCoordMybatis")
+  public List<CafeDTOCoordTemp> getCafesListWithCoord(@RequestParam(value = "userLong") double userLong,
+      @RequestParam(value = "userLat") double userLat) {
+    List<CafeDTOCoordTemp> list = cafeService.getCafesListWithCoordMybatis(userLong, userLat);
+    return list;
+  }
+
   @GetMapping(value = "/cafe/NickNameCheck")
   public String NickNameCheck(@RequestParam Map<String,String>map) {
 	  String check = cafeService.NickNameCheck(map);
@@ -186,10 +186,8 @@ public class CafeController {
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			return bufferedReader.readLine();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -200,7 +198,22 @@ public class CafeController {
 	public UsersDTO getMember(@RequestParam Map<String,String>map) {
 		return cafeService.getMember(map);
 	}
+
+	@PostMapping("/cafe/InsertProfileimg")
+	public void InsertProfileimg(@RequestParam Map<String,String>map) {
+		cafeService.InsertProfileimg(map);
+	}
 	
+
+	@PostMapping("/cafe/selectProfileimg")
+	public UserProfileDTO selectProfileimg(@RequestParam Map<String,String>map) {
+		return cafeService.selectProfileimg(map);
+	}
+	@PostMapping("/cafe/updateProfileimg")
+	public void updateProfileimg(@RequestParam Map<String,String>map) {
+		cafeService.updateProfileimg(map);
+	}
+
 	@GetMapping(value = "/cafe/updateCafeinfo")
 	public void updateCafeinfo(
 	    @RequestParam(value = "opentime") int opentime, 
@@ -225,3 +238,6 @@ public class CafeController {
 		 cafeService.paymentList(map);
 	}
 }
+
+	
+

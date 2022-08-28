@@ -11,6 +11,7 @@ import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.PaymentDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
@@ -144,6 +145,7 @@ public UsersDTO getMember(Map<String, String> map) {
 	return selectMapper.getMember(map);
 }
 
+
 //웅비 해당 제품정보 불러오기
 @Override
 public List<CafeitemDTO> getProductInfo(String product_id) {
@@ -154,6 +156,25 @@ public List<CafeitemDTO> getProductInfo(String product_id) {
 @Override
 public void paymentList(Map<String, String> map) {
   insertMapper.paymentList(map);
+}
+
+
+@Override
+public void InsertProfileimg(Map<String, String> map) {
+		insertMapper.InsertProfileimg(map);
+}
+
+
+@Override
+public UserProfileDTO selectProfileimg(Map<String, String> map) {
+	return selectMapper.selectProfileimg(map);
+}
+
+
+@Override
+public void updateProfileimg(Map<String, String> map) {
+	updateMapper.updateProfileimg(map);
+
 }
 
 }
