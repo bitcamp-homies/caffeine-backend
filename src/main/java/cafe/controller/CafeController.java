@@ -25,6 +25,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
 
@@ -200,7 +201,22 @@ public class CafeController {
 	public UsersDTO getMember(@RequestParam Map<String,String>map) {
 		return cafeService.getMember(map);
 	}
+
+	@PostMapping("/cafe/InsertProfileimg")
+	public void InsertProfileimg(@RequestParam Map<String,String>map) {
+		cafeService.InsertProfileimg(map);
+	}
 	
+
+	@PostMapping("/cafe/selectProfileimg")
+	public UserProfileDTO selectProfileimg(@RequestParam Map<String,String>map) {
+		return cafeService.selectProfileimg(map);
+	}
+	@PostMapping("/cafe/updateProfileimg")
+	public void updateProfileimg(@RequestParam Map<String,String>map) {
+		cafeService.updateProfileimg(map);
+	}
+
 	@GetMapping(value = "/cafe/updateCafeinfo")
 	public void updateCafeinfo(
 	    @RequestParam(value = "opentime") int opentime, 
@@ -213,4 +229,5 @@ public class CafeController {
 	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
   	}
 	
+
 }
