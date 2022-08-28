@@ -218,4 +218,10 @@ public class CafeController {
 	public List<CafeitemDTO>getProductInfo(@RequestParam(value = "product_id") String product_id) {
 		return cafeService.getProductInfo(product_id);
 	}
+
+	//웅비 결제 정보 입력하기
+	@PostMapping(value="/order/paymentList")
+	void paymentList(@RequestParam Map<String, String>map) {
+		 cafeService.paymentList(map);
+	}
 }

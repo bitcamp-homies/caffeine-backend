@@ -10,6 +10,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
@@ -21,6 +22,9 @@ public class CafeServiceImpl implements CafeService {
 
   @Autowired
   private CafeRepository cafeRepository;
+
+  @Autowired
+  private PaymentDTO paymentDTO;
 
   @Autowired
   private SelectMapper selectMapper;
@@ -140,10 +144,16 @@ public UsersDTO getMember(Map<String, String> map) {
 	return selectMapper.getMember(map);
 }
 
-
+//웅비 해당 제품정보 불러오기
 @Override
 public List<CafeitemDTO> getProductInfo(String product_id) {
   return selectMapper.getProductInfo(product_id);
+}
+
+//웅비 결제정보 저장하기
+@Override
+public void paymentList(Map<String, String> map) {
+  insertMapper.paymentList(map);
 }
 
 }

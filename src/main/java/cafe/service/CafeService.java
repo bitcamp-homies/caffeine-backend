@@ -50,4 +50,7 @@ public interface CafeService {
   //웅비 해당 제품정보 가져오기
   List<CafeitemDTO> getProductInfo(String product_id);
 
+  //웅비 결제 정보 저장
+  void paymentList(Map<String, String> map);
+
 }
