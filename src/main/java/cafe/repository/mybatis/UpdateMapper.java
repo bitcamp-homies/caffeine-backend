@@ -15,6 +15,8 @@ public interface UpdateMapper {
   @Update("UPDATE cafes_coord SET cafe_coord = POINT(${longitude}, ${latitude}) WHERE cafe_id = ${cafe_id}")
   void updateCoordMybatis(@Param("longitude")double longitude, @Param("latitude")double latitude, @Param("cafe_id")long cafe_id);
 
+  //테스트 코멘트
+
   @Update("UPDATE cafe_info SET opentime = ${opentime}, closetime = ${closetime}, pet = #{pet}, parking = #{parking} WHERE cafe_id = ${cafe_id}")
   void updateCafeinfo(
       @Param("opentime")int opentime, 
