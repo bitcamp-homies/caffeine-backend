@@ -7,8 +7,12 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 
 public interface CafeService {
 
@@ -53,6 +57,30 @@ void InsertProfileimg(Map<String, String> map);
 UserProfileDTO selectProfileimg(Map<String, String> map);
 
 void updateProfileimg(Map<String, String> map);
+
+void InsertCafes(Map<String, Object> map2);
+
+CafesDTO getcafes(Map<String, String> map);
+
+List<Cafes_picsDTO> getcafefics(Map<String, String> map);
+
+Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
+
+void insertCafepics(Map<String, String> map);
+
+void updateCafepics(Map<String, String> map);
+
+int insertcafes_product_list(Map<String, String> map);
+
+int insertproducts(Map<String, String> map);
+
+ProductsDTO selectproducts(Map<String, String> map);
+
+Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
+
+void insertcafes_product_list_items(Map<String, String> map);
+
+void insertproducts_img(Map<String, String> map);
 
 
 }

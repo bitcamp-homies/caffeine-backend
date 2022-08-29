@@ -30,5 +30,8 @@ public interface UpdateMapper {
       @Param("parking")String parking, 
       @Param("cafe_id")int cafe_id
       );
+
+  @Update("update cafes_pics set img_file=#{img_file},file_path=#{file_path} where cafe_id =${cafe_id} and img_file like '%profile%'")
+  void updateCafepics(Map<String, String> map);
  
 }
