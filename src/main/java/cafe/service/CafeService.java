@@ -44,9 +44,32 @@ public interface CafeService {
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
-  List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  List<UsersDTO> getAllUser();
 
+  void updateUser(
+      int user_id, 
+      int business_reg_num,
+      String user_type, 
+      String name, 
+      String nickname, 
+      String email,
+      String password, 
+      String business_name, 
+      String business_address
+      );
+
+  CafeDTO getCafeByInsta(String insta_account);
+
+  List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  
   UsersDTO getMember(Map<String, String> map);
+  
+  
+  void InsertProfileimg(Map<String, String> map);
+  
+  UserProfileDTO selectProfileimg(Map<String, String> map);
+  
+  void updateProfileimg(Map<String, String> map);
 
   //웅비 해당 제품정보 가져오기
   List<CafeitemDTO> getProductInfo(String product_id);
@@ -60,7 +83,6 @@ void InsertProfileimg(Map<String, String> map);
 UserProfileDTO selectProfileimg(Map<String, String> map);
 
 void updateProfileimg(Map<String, String> map);
-
 
 }
 
