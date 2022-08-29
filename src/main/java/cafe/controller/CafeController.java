@@ -255,8 +255,6 @@ public class CafeController {
 	  CafeDTO cafe = cafeService.getCafeByInsta(insta_account);
 	  return cafe;
 	}
-	
-}
 
 	//웅비 해당 제품 정보 가져오기
 	@GetMapping(value="/order/getProductInfo")
