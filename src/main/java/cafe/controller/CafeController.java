@@ -117,6 +117,7 @@ public class CafeController {
 	    )
 	{
 	  
+
 	  List<CafeDTOCoordTemp> list = cafeService.getCafesListBoundary(userLong, userLat, boundary, openFilter, petFilter, parkingFilter);
 	  return list;
 	}
@@ -224,7 +225,7 @@ public class CafeController {
 	  {
 	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
   	}
-	
+
 	@GetMapping(value = "/cafe/getAllUserMybatis")
 	public List<UsersDTO> getAllUser() {
 	  return cafeService.getAllUser();
@@ -256,3 +257,17 @@ public class CafeController {
 	}
 	
 }
+
+	//웅비 해당 제품 정보 가져오기
+	@GetMapping(value="/order/getProductInfo")
+	public List<CafeitemDTO>getProductInfo(@RequestParam(value = "product_id") String product_id) {
+		return cafeService.getProductInfo(product_id);
+	}
+
+	//웅비 결제 정보 입력하기
+	@PostMapping(value="/order/paymentList")
+	void paymentList(@RequestParam Map<String, String>map) {
+		 cafeService.paymentList(map);
+	}
+}
+
