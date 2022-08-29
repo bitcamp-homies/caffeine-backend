@@ -13,6 +13,7 @@ import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
+import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
@@ -26,6 +27,9 @@ public class CafeServiceImpl implements CafeService {
 
   @Autowired
   private CafeRepository cafeRepository;
+
+  @Autowired
+  private PaymentDTO paymentDTO;
 
   @Autowired
   private SelectMapper selectMapper;
@@ -146,6 +150,18 @@ public UsersDTO getMember(Map<String, String> map) {
 }
 
 
+//웅비 해당 제품정보 불러오기
+@Override
+public List<CafeitemDTO> getProductInfo(String product_id) {
+  return selectMapper.getProductInfo(product_id);
+}
+
+//웅비 결제정보 저장하기
+@Override
+public void paymentList(Map<String, String> map) {
+  insertMapper.paymentList(map);
+}
+
 
 @Override
 public void InsertProfileimg(Map<String, String> map) {
@@ -162,6 +178,7 @@ public UserProfileDTO selectProfileimg(Map<String, String> map) {
 @Override
 public void updateProfileimg(Map<String, String> map) {
 	updateMapper.updateProfileimg(map);
+
 }
 
 

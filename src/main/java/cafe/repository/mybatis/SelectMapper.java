@@ -119,5 +119,7 @@ public interface SelectMapper {
   @Select("Select * from cafes_product_list where cafe_id=${cafe_id}")
   public Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
 
-
+  //웅비 해당제품의 정보 가져오기
+  @Select("select * from products where product_id = ${product_id}")
+  public List<CafeitemDTO> getProductInfo(String product_id);
 }
