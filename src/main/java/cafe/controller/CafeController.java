@@ -204,6 +204,7 @@ public class CafeController {
 	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
   	}
 
+
 	
 	@PostMapping(value = "/cafe/getcafes")
 	public CafesDTO getcafes(@RequestParam Map<String,String>map) {
@@ -260,6 +261,37 @@ public class CafeController {
 	@PostMapping(value ="/cafe/insertproducts_img")
 	public void insertproducts_img(@RequestParam Map<String,String>map) {
 		cafeService.insertproducts_img(map);
+    }
+
+	@GetMapping(value = "/cafe/getAllUserMybatis")
+	public List<UsersDTO> getAllUser() {
+	  return cafeService.getAllUser();
+	}
+	
+	@GetMapping(value = "/cafe/updateUserMybatis")
+	public void updateUser(
+	  @RequestParam(value = "user_id") int user_id,
+	  @RequestParam(value = "business_reg_num", required = false) int business_reg_num,
+	  @RequestParam(value = "user_type") String user_type,
+	  @RequestParam(value = "name") String name,
+	  @RequestParam(value = "nickname") String nickname,
+	  @RequestParam(value = "email") String email,
+	  @RequestParam(value = "password") String password,
+	  @RequestParam(value = "business_name", required = false) String business_name,
+	  @RequestParam(value = "business_address", required = false) String business_address
+	  ) 
+	{
+	  cafeService.updateUser(
+	      user_id, business_reg_num, user_type, name, nickname, email, password, business_name, business_address
+    );
+	  return ;
+	}
+	
+	@GetMapping(value = "/cafe/getCafeByInstaMybatis")
+	public CafeDTO getCafeByInsta(@RequestParam(value = "insta_account")String insta_account) {
+	  CafeDTO cafe = cafeService.getCafeByInsta(insta_account);
+	  return cafe;
+
 	}
 
 	//웅비 해당 제품 정보 가져오기
@@ -274,6 +306,4 @@ public class CafeController {
 		 cafeService.paymentList(map);
 	}
 }
-
-	
 

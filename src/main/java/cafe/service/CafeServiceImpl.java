@@ -130,25 +130,70 @@ public class CafeServiceImpl implements CafeService {
     
   }
 
+  @Override
+  public List<UsersDTO> getAllUser() {
+    
+    return selectMapper.getAllUser();
+  }
+  
+  @Override
+  public void updateUser(
+      int user_id, 
+      int business_reg_num, 
+      String user_type, 
+      String name, 
+      String nickname,
+      String email, 
+      String password, 
+      String business_name, 
+      String business_address
+      ) 
+  {
+    updateMapper.updateUser(user_id, business_reg_num, name, nickname, email, password, business_name, business_address);
+    return ;
+  }
+  
+  @Override
+  public CafeDTO getCafeByInsta(String insta_account) {
+    
+    return selectMapper.getCafeByInsta(insta_account);
+  }
 
-
-@Override
-public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
-	return selectMapper.getCafeitemList(map);
-}
-
-
-@Override
-public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
-	return selectMapper.getCafeitem(map);
-}
-
-
-@Override
-public UsersDTO getMember(Map<String, String> map) {
-	return selectMapper.getMember(map);
-}
-
+  @Override
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+  	return selectMapper.getCafeitemList(map);
+  }
+  
+  
+  @Override
+  public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+  	return selectMapper.getCafeitem(map);
+  }
+  
+  
+  @Override
+  public UsersDTO getMember(Map<String, String> map) {
+  	return selectMapper.getMember(map);
+  }
+  
+  
+  
+  @Override
+  public void InsertProfileimg(Map<String, String> map) {
+  		insertMapper.InsertProfileimg(map);
+  }
+  
+  
+  @Override
+  public UserProfileDTO selectProfileimg(Map<String, String> map) {
+  	return selectMapper.selectProfileimg(map);
+  }
+  
+  
+  @Override
+  public void updateProfileimg(Map<String, String> map) {
+  	updateMapper.updateProfileimg(map);
+  }
 
 //웅비 해당 제품정보 불러오기
 @Override
@@ -161,6 +206,7 @@ public List<CafeitemDTO> getProductInfo(String product_id) {
 public void paymentList(Map<String, String> map) {
   insertMapper.paymentList(map);
 }
+
 
 
 @Override
@@ -255,7 +301,6 @@ public void insertproducts_img(Map<String, String> map) {
 	insertMapper.insertproducts_img(map);
 	
 }
-
 
 
 }
