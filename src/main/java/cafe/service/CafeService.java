@@ -64,13 +64,8 @@ public interface CafeService {
   
   UsersDTO getMember(Map<String, String> map);
   
-  
-  void InsertProfileimg(Map<String, String> map);
-  
   UserProfileDTO selectProfileimg(Map<String, String> map);
   
-  void updateProfileimg(Map<String, String> map);
-
   //웅비 해당 제품정보 가져오기
   List<CafeitemDTO> getProductInfo(String product_id);
 
@@ -79,8 +74,6 @@ public interface CafeService {
 
 
 void InsertProfileimg(Map<String, String> map);
-
-UserProfileDTO selectProfileimg(Map<String, String> map);
 
 void updateProfileimg(Map<String, String> map);
 
