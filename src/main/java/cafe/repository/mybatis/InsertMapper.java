@@ -16,6 +16,10 @@ public interface InsertMapper {
 	@Insert("insert into users(user_type, insta_account, name, nickname, email, password, business_name, business_reg_num, business_address)"
 			+ "values(#{user_type}, #{insta_account}, #{name}, #{nickname}, #{email}, #{password}, #{business_name}, #{business_reg_num}, #{business_address})")
 	public int createMember(Map<String, String> map);
+	
+	@Insert("insert into users_profile_img(profile_id, path,profile_img)"
+			+ "values(#{user_id},#{path},#{img})")
+	public void InsertProfileimg(Map<String, String> map);
   
 	@Insert("insert into like_lists(user_id, list_name)" + "values((select user_id from users where email = #{email}) ,'내가 좋아하는 카페')")
 	public void makeList(@Param("email")String email);

@@ -2,7 +2,6 @@ package cafe.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Service;
 import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
+import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
@@ -79,10 +80,32 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(double userLong, double userLat) {
-
-		List<CafeDTOCoordTemp> list = selectMapper.getCafesListWithCoordMybatis(userLong, userLat);
-		return list;
-
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000Mybatis(userLong, userLat);
+    return list;
+  }
+  
+  @Override
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter) {
+    
+    int openFilterNum, petFilterNum, parkingFilterNum;
+    if(openFilter) {
+      openFilterNum = 1;
+    }else {
+      openFilterNum = 0;
+    }
+    if(petFilter) {
+      petFilterNum = 1;
+    }else {
+      petFilterNum = 0;
+    }
+    if(parkingFilter) {
+      parkingFilterNum = 1;
+    }else {
+      parkingFilterNum = 0;
+    }
+    
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum, petFilterNum, parkingFilterNum);
+    return list;
 	}
 
 	@Override
@@ -105,5 +128,49 @@ public class CafeServiceImpl implements CafeService {
 		UsersDTO userDTO = selectMapper.Login(map);
 		return userDTO;
 	}
+  
+  @Override
+  public void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id) {
+    updateMapper.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
+    
+  }
+
+
+
+@Override
+public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+	return selectMapper.getCafeitemList(map);
+}
+
+
+@Override
+public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+	return selectMapper.getCafeitem(map);
+}
+
+
+@Override
+public UsersDTO getMember(Map<String, String> map) {
+	return selectMapper.getMember(map);
+}
+
+
+
+@Override
+public void InsertProfileimg(Map<String, String> map) {
+		insertMapper.InsertProfileimg(map);
+}
+
+
+@Override
+public UserProfileDTO selectProfileimg(Map<String, String> map) {
+	return selectMapper.selectProfileimg(map);
+}
+
+
+@Override
+public void updateProfileimg(Map<String, String> map) {
+	updateMapper.updateProfileimg(map);
+}
 
 }
