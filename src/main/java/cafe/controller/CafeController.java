@@ -158,7 +158,8 @@ public class CafeController {
 		System.out.println(cafe_id);
 		//cafeService.deleteLikeList(cafe_id, email);
 	}
-	
+
+	@PostMapping(value = "/cafe/updateLikeList")
 	public void updateLikeList(@RequestParam(value = "cafe_id") int cafe_id,@RequestParam(value = "email") String email ) {
 		System.out.println(cafe_id);
 		//cafeService.updateLikeList(cafe_id, email);
