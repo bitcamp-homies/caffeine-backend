@@ -153,6 +153,17 @@ public class CafeController {
 		return cafeService.getLikeList(email);
 	}
 
+	@PostMapping(value = "/cafe/deleteLikeList")
+	public void deleteLikeList(@RequestParam(value = "cafe_id") int cafe_id,@RequestParam(value = "email") String email ) {
+		System.out.println(cafe_id);
+		//cafeService.deleteLikeList(cafe_id, email);
+	}
+	
+	public void updateLikeList(@RequestParam(value = "cafe_id") int cafe_id,@RequestParam(value = "email") String email ) {
+		System.out.println(cafe_id);
+		//cafeService.updateLikeList(cafe_id, email);
+	}
+	
 	@PostMapping(value = "cafe/kakaopay")
 	public String kakaopay(@RequestParam Map<String, String> map) {
 		String cid = map.get("cid");

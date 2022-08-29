@@ -2,6 +2,7 @@ package cafe.repository.mybatis;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -30,5 +31,8 @@ public interface UpdateMapper {
       @Param("parking")String parking, 
       @Param("cafe_id")int cafe_id
       );
+
+  @Delete("DELETE from like_cafes where user_id =(select user_id from users where email = ${email}) and cafe_id= ${cafe_id}")
+  public void deleteLikeList(@Param("cafe_id")int cafe_id, @Param("email")String email);
  
 }

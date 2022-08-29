@@ -62,4 +62,8 @@ public interface CafeService {
 
 	void updateProfileimg(Map<String, String> map);
 
+	void updateLikeList(int cafe_id, String email);
+
+	void deleteLikeList(int cafe_id, String email);
+
 }
