@@ -10,6 +10,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.InsertMapper;
@@ -122,11 +123,6 @@ public class CafeServiceImpl implements CafeService {
   }
 
   @Override
-  public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
-  	return selectMapper.getCafeitemList(map);
-  }
-  
-  @Override
   public List<UsersDTO> getAllUser() {
     
     return selectMapper.getAllUser();
@@ -154,4 +150,43 @@ public class CafeServiceImpl implements CafeService {
     
     return selectMapper.getCafeByInsta(insta_account);
   }
+
+
+  @Override
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
+  	return selectMapper.getCafeitemList(map);
+  }
+  
+  
+  @Override
+  public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
+  	return selectMapper.getCafeitem(map);
+  }
+  
+  
+  @Override
+  public UsersDTO getMember(Map<String, String> map) {
+  	return selectMapper.getMember(map);
+  }
+  
+  
+  
+  @Override
+  public void InsertProfileimg(Map<String, String> map) {
+  		insertMapper.InsertProfileimg(map);
+  }
+  
+  
+  @Override
+  public UserProfileDTO selectProfileimg(Map<String, String> map) {
+  	return selectMapper.selectProfileimg(map);
+  }
+  
+  
+  @Override
+  public void updateProfileimg(Map<String, String> map) {
+  	updateMapper.updateProfileimg(map);
+  }
+
+
 }
