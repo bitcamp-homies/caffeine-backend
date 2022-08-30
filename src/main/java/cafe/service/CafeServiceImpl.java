@@ -40,7 +40,6 @@ public class CafeServiceImpl implements CafeService {
   public List<CafeDTO> getCafeListAll() {
     return cafeRepository.getCafeListAllGangnam();
   }
- 
 
   @Override
   public List<CafeDTOMybatis> getCafeListAllMybatis() {
@@ -81,28 +80,30 @@ public class CafeServiceImpl implements CafeService {
     List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary3000Mybatis(userLong, userLat);
     return list;
   }
-  
+
   @Override
-  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter) {
-    
+  public List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter,
+      Boolean petFilter, Boolean parkingFilter) {
+
     int openFilterNum, petFilterNum, parkingFilterNum;
-    if(openFilter) {
+    if (openFilter) {
       openFilterNum = 1;
-    }else {
+    } else {
       openFilterNum = 0;
     }
-    if(petFilter) {
+    if (petFilter) {
       petFilterNum = 1;
-    }else {
+    } else {
       petFilterNum = 0;
     }
-    if(parkingFilter) {
+    if (parkingFilter) {
       parkingFilterNum = 1;
-    }else {
+    } else {
       parkingFilterNum = 0;
     }
-    
-    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum, petFilterNum, parkingFilterNum);
+
+    List<CafeDTOCoordTemp> list = selectMapper.getCafesListBoundary(userLong, userLat, boundary, openFilterNum,
+        petFilterNum, parkingFilterNum);
     return list;
   }
 
@@ -119,104 +120,107 @@ public class CafeServiceImpl implements CafeService {
     UsersDTO userDTO = selectMapper.Login(map);
     return userDTO;
   }
-  
+
   @Override
   public void updateCafeinfo(int opentime, int closetime, String pet, String parking, int cafe_id) {
     updateMapper.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
-    
+
   }
 
   @Override
   public List<UsersDTO> getAllUser() {
-    
+
     return selectMapper.getAllUser();
   }
-  
+
   @Override
   public void updateUser(
-      int user_id, 
-      int business_reg_num, 
-      String user_type, 
-      String name, 
+      int user_id,
+      int business_reg_num,
+      String user_type,
+      String name,
       String nickname,
-      String email, 
-      String password, 
-      String business_name, 
-      String business_address
-      ) 
-  {
-    updateMapper.updateUser(user_id, business_reg_num, name, nickname, email, password, business_name, business_address);
-    return ;
+      String email,
+      String password,
+      String business_name,
+      String business_address) {
+    updateMapper.updateUser(user_id, business_reg_num, name, nickname, email, password, business_name,
+        business_address);
+    return;
   }
-  
+
   @Override
   public CafeDTO getCafeByInsta(String insta_account) {
-    
+
     return selectMapper.getCafeByInsta(insta_account);
   }
 
   @Override
   public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
-  	return selectMapper.getCafeitemList(map);
+    return selectMapper.getCafeitemList(map);
   }
-  
-  
+
   @Override
   public List<CafeitemDTO> getCafeitem(Map<String, String> map) {
-  	return selectMapper.getCafeitem(map);
+    return selectMapper.getCafeitem(map);
   }
-  
-  
+
   @Override
   public UsersDTO getMember(Map<String, String> map) {
-  	return selectMapper.getMember(map);
+    return selectMapper.getMember(map);
   }
-  
-  
-  
+
   @Override
   public void InsertProfileimg(Map<String, String> map) {
-  		insertMapper.InsertProfileimg(map);
+    insertMapper.InsertProfileimg(map);
   }
-  
-  
+
   @Override
   public UserProfileDTO selectProfileimg(Map<String, String> map) {
-  	return selectMapper.selectProfileimg(map);
+    return selectMapper.selectProfileimg(map);
   }
-  
-  
+
   @Override
   public void updateProfileimg(Map<String, String> map) {
-  	updateMapper.updateProfileimg(map);
+    updateMapper.updateProfileimg(map);
   }
-	
-	//웅비 해당 제품정보 불러오기
-	@Override
-	public List<CafeitemDTO> getProductInfo(String product_id) {
-	  return selectMapper.getProductInfo(product_id);
-	}
-	
-	//웅비 결제정보 저장하기
-	@Override
-	public void paymentList(Map<String, String> map) {
-	  insertMapper.paymentList(map);
-	}
-	
-	@Override
-	public List<Map<Object, Object>> getLikeList(String email) {
-	  System.out.println(selectMapper.getLikeList(email));
-	  return selectMapper.getLikeList(email);
-	}
-	
-	@Override
-	public void updateLikeList(int cafe_id, String email) {
-	  insertMapper.updateLikeList(cafe_id, email);
-	}
-	
-	@Override
-	public void deleteLikeList(int cafe_id, String email) {
-	  updateMapper.deleteLikeList(cafe_id, email);
-	}
+
+  // 웅비 해당 제품정보 불러오기
+  @Override
+  public List<CafeitemDTO> getProductInfo(String product_id) {
+    return selectMapper.getProductInfo(product_id);
+  }
+
+  // 웅비 결제정보 저장하기
+  @Override
+  public void paymentList(Map<String, String> map) {
+    insertMapper.paymentList(map);
+  }
+
+  @Override
+  public List<Map<Object, Object>> getLikeList(String email) {
+    System.out.println(selectMapper.getLikeList(email));
+    return selectMapper.getLikeList(email);
+  }
+
+  @Override
+  public void updateLikeList(int cafe_id, String email) {
+    insertMapper.updateLikeList(cafe_id, email);
+  }
+
+  @Override
+  public void deleteLikeList(int cafe_id, String email) {
+    updateMapper.deleteLikeList(cafe_id, email);
+  }
+
+  @Override
+  public void makeList(String email) {
+    insertMapper.makeList(email);
+  }
+
+  @Override
+  public void makeCafeList(String email, int randNum) {
+    insertMapper.makeCafeList(email, randNum);
+  }
 
 }

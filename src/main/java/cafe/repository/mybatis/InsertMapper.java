@@ -31,6 +31,6 @@ public interface InsertMapper {
 	@Insert("insert into like_cafes(list_id, cafe_id)" + "values((select list_id from like_lists where user_id = (select user_id from users where email = #{email})) , ${randNum})")
 	public void makeCafeList(@Param("email")String email, @Param("randNum") int randNum);
 
-	@Insert("insert into like_cafes(list_id, cafe_id) values ((select list_id from like_lists where user_id = (select user_id from users where email = ${email})), ${cafe_id})")
+	@Insert("insert into like_cafes(list_id, cafe_id) values ((select list_id from like_lists where user_id = (select user_id from users where email = #{email})), #{cafe_id})")
 	public void updateLikeList(@Param("cafe_id")int cafe_id, @Param("email")String email);
 }

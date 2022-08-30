@@ -32,7 +32,7 @@ public interface UpdateMapper {
       @Param("cafe_id")int cafe_id
       );
 
-  @Delete("DELETE from like_cafes where user_id =(select user_id from users where email = #{email}) and cafe_id= #{cafe_id}")
+  @Delete("DELETE from like_cafes where list_id =((select list_id from like_lists where user_id =(select user_id from users where email = #{email}))) and cafe_id=${cafe_id}")
   public void deleteLikeList(@Param("cafe_id")int cafe_id, @Param("email")String email);
  
   @Update("UPDATE users "
