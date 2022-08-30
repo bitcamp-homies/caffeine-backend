@@ -181,8 +181,7 @@ public class CafeServiceImpl implements CafeService {
   
   
   @Override
-  public UserProfileDTO 
-  (Map<String, String> map) {
+  public UserProfileDTO selectProfileimg(Map<String, String> map) {
   	return selectMapper.selectProfileimg(map);
   }
   
@@ -191,33 +190,33 @@ public class CafeServiceImpl implements CafeService {
   public void updateProfileimg(Map<String, String> map) {
   	updateMapper.updateProfileimg(map);
   }
-
-//웅비 해당 제품정보 불러오기
-@Override
-public List<CafeitemDTO> getProductInfo(String product_id) {
-  return selectMapper.getProductInfo(product_id);
-}
-
-//웅비 결제정보 저장하기
-@Override
-public void paymentList(Map<String, String> map) {
-  insertMapper.paymentList(map);
-}
-
-@Override
-public List<Map<Object, Object>> getLikeList(String email) {
-  System.out.println(selectMapper.getLikeList(email));
-  return selectMapper.getLikeList(email);
-}
-
-@Override
-public void updateLikeList(int cafe_id, String email) {
-  insertMapper.updateLikeList(cafe_id, email);
-}
-
-@Override
-public void deleteLikeList(int cafe_id, String email) {
-  updateMapper.deleteLikeList(cafe_id, email);
-}
+	
+	//웅비 해당 제품정보 불러오기
+	@Override
+	public List<CafeitemDTO> getProductInfo(String product_id) {
+	  return selectMapper.getProductInfo(product_id);
+	}
+	
+	//웅비 결제정보 저장하기
+	@Override
+	public void paymentList(Map<String, String> map) {
+	  insertMapper.paymentList(map);
+	}
+	
+	@Override
+	public List<Map<Object, Object>> getLikeList(String email) {
+	  System.out.println(selectMapper.getLikeList(email));
+	  return selectMapper.getLikeList(email);
+	}
+	
+	@Override
+	public void updateLikeList(int cafe_id, String email) {
+	  insertMapper.updateLikeList(cafe_id, email);
+	}
+	
+	@Override
+	public void deleteLikeList(int cafe_id, String email) {
+	  updateMapper.deleteLikeList(cafe_id, email);
+	}
 
 }

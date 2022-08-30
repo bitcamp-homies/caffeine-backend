@@ -30,9 +30,6 @@ public interface CafeService {
 	// 수정 : 회원가입시 임의로 관심목록 카페 한개 추가
 	public void makeList(String email);
 
-  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter,
-      Boolean petFilter, Boolean parkingFilter);
-
 	public void makeCafeList(String email, int randNum);
 
 	// 관심목록 얻어오기
@@ -83,20 +80,12 @@ public interface CafeService {
 
 	List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
-	List<CafeitemDTO> getCafeitem(Map<String, String> map);
-
-	UsersDTO getMember(Map<String, String> map);
-
 	void InsertProfileimg(Map<String, String> map);
-
-	UserProfileDTO selectProfileimg(Map<String, String> map);
 
 	void updateProfileimg(Map<String, String> map);
 
 	void updateLikeList(int cafe_id, String email);
 
 	void deleteLikeList(int cafe_id, String email);
-  
-  void updateProfileimg(Map<String, String> map);
 
 }
