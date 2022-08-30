@@ -14,6 +14,7 @@ import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
+import cafe.repository.mybatis.DeleteMapper;
 import cafe.repository.mybatis.InsertMapper;
 import cafe.repository.mybatis.SelectMapper;
 import cafe.repository.mybatis.UpdateMapper;
@@ -35,6 +36,9 @@ public class CafeServiceImpl implements CafeService {
 
   @Autowired
   private UpdateMapper updateMapper;
+
+  @Autowired
+  private DeleteMapper deleteMapper;
 
   @Override
   public List<CafeDTO> getCafeListAll() {
@@ -176,5 +180,19 @@ public void updateProfileimg(Map<String, String> map) {
 	updateMapper.updateProfileimg(map);
 
 }
+
+//웅비 결제정보 가져오기
+@Override
+public List<PaymentDTO> getOrderList(String user_id) {
+  return selectMapper.getOrderList(user_id);
+}
+@Override
+public void deleteOrderList(Map<String, String> map) {
+  deleteMapper.deleteOrderList(map);
+  
+}
+
+
+
 
 }
