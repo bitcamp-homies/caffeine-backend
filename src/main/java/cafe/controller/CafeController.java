@@ -251,4 +251,46 @@ public class CafeController {
 			@RequestParam(value = "cafe_id") int cafe_id) {
 		cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
 	}
+
+	@GetMapping(value = "/cafe/getAllUserMybatis")
+	public List<UsersDTO> getAllUser() {
+	  return cafeService.getAllUser();
+	}
+	
+	@GetMapping(value = "/cafe/updateUserMybatis")
+	public void updateUser(
+	  @RequestParam(value = "user_id") int user_id,
+	  @RequestParam(value = "business_reg_num", required = false) int business_reg_num,
+	  @RequestParam(value = "user_type") String user_type,
+	  @RequestParam(value = "name") String name,
+	  @RequestParam(value = "nickname") String nickname,
+	  @RequestParam(value = "email") String email,
+	  @RequestParam(value = "password") String password,
+	  @RequestParam(value = "business_name", required = false) String business_name,
+	  @RequestParam(value = "business_address", required = false) String business_address
+	  ) 
+	{
+	  cafeService.updateUser(
+	      user_id, business_reg_num, user_type, name, nickname, email, password, business_name, business_address
+    );
+	  return ;
+	}
+	
+	@GetMapping(value = "/cafe/getCafeByInstaMybatis")
+	public CafeDTO getCafeByInsta(@RequestParam(value = "insta_account")String insta_account) {
+	  CafeDTO cafe = cafeService.getCafeByInsta(insta_account);
+	  return cafe;
+	}
+
+	//웅비 해당 제품 정보 가져오기
+	@GetMapping(value="/order/getProductInfo")
+	public List<CafeitemDTO>getProductInfo(@RequestParam(value = "product_id") String product_id) {
+		return cafeService.getProductInfo(product_id);
+	}
+
+	//웅비 결제 정보 입력하기
+	@PostMapping(value="/order/paymentList")
+	void paymentList(@RequestParam Map<String, String>map) {
+		 cafeService.paymentList(map);
+	}
 }

@@ -35,4 +35,25 @@ public interface UpdateMapper {
   @Delete("DELETE from like_cafes where user_id =(select user_id from users where email = #{email}) and cafe_id= #{cafe_id}")
   public void deleteLikeList(@Param("cafe_id")int cafe_id, @Param("email")String email);
  
+  @Update("UPDATE users "
+      + "SET "
+      + "business_reg_num = IF(USER_TYPE='business', ${business_reg_num}, NULL), "
+      + "name= #{name}, "
+      + "nickname= #{nickname}, "
+      + "email= #{email}, "
+      + "password= #{password}, "
+      + "business_name = IF(USER_TYPE='business', #{business_name}, NULL), "
+      + "business_address = IF(USER_TYPE='business', #{business_address}, NULL) "
+      + "WHERE user_id = ${user_id}")
+  void updateUser(
+      @Param("user_id")int user_id, 
+      @Param("business_reg_num")int business_reg_num,
+      @Param("name")String name, 
+      @Param("nickname")String nickname, 
+      @Param("email")String email,
+      @Param("password")String password, 
+      @Param("business_name")String business_name, 
+      @Param("business_address")String business_address
+  );
+  
 }

@@ -12,23 +12,26 @@ import cafe.bean.mybatis.UsersDTO;
 
 public interface CafeService {
 
-	// JPA
-	List<CafeDTO> getCafeListAll();
+  // JPA
+  List<CafeDTO> getCafeListAll();
 
-	// MyBatis
-	List<CafeDTOMybatis> getCafeListAllMybatis();
+  // MyBatis
+  List<CafeDTOMybatis> getCafeListAllMybatis();
 
-	// MyBatis
-	public String NickNameCheck(Map<String, String> map);
+  // MyBatis
+  public String NickNameCheck(Map<String, String> map);
 
-	// MyBatis
-	public UsersDTO EmailCheck(Map<String, String> map);
+  // MyBatis
+  public UsersDTO EmailCheck(Map<String, String> map);
 
-	// My Batis
-	public int createMember(Map<String, String> map);
+  // My Batis
+  public int createMember(Map<String, String> map);
 
 	// 수정 : 회원가입시 임의로 관심목록 카페 한개 추가
 	public void makeList(String email);
+
+  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter,
+      Boolean petFilter, Boolean parkingFilter);
 
 	public void makeCafeList(String email, int randNum);
 
@@ -45,6 +48,34 @@ public interface CafeService {
 			Boolean petFilter, Boolean parkingFilter);
 
 	void updateCoordMybatis(double longitude, double latitude, long cafe_id);
+
+  List<UsersDTO> getAllUser();
+
+  void updateUser(
+      int user_id, 
+      int business_reg_num,
+      String user_type, 
+      String name, 
+      String nickname, 
+      String email,
+      String password, 
+      String business_name, 
+      String business_address
+      );
+
+  CafeDTO getCafeByInsta(String insta_account);
+
+  List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  
+  UsersDTO getMember(Map<String, String> map);
+  
+  UserProfileDTO selectProfileimg(Map<String, String> map);
+  
+  //웅비 해당 제품정보 가져오기
+  List<CafeitemDTO> getProductInfo(String product_id);
+
+  //웅비 결제 정보 저장
+  void paymentList(Map<String, String> map);
 
 	UsersDTO Login(Map<String, String> map);
 
@@ -65,5 +96,7 @@ public interface CafeService {
 	void updateLikeList(int cafe_id, String email);
 
 	void deleteLikeList(int cafe_id, String email);
+  
+  void updateProfileimg(Map<String, String> map);
 
 }

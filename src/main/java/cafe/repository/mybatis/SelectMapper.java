@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -100,4 +101,14 @@ public interface SelectMapper {
 
 	@Select("select cafe_id from like_cafes where list_id = (select list_id from like_lists where user_id = (select user_id from users where email = #{email}))")
 	public List<Map<Object, Object>> getLikeList(@Param("email")String email);
+
+  @Select("SELECT * from users")
+  public List<UsersDTO> getAllUser();
+  
+  @Select("SELECT * from CafeDTO WHERE insta_account = #{insta_account}")
+  public CafeDTO getCafeByInsta(@Param("insta_account")String insta_account);
+  
+  //웅비 해당제품의 정보 가져오기
+  @Select("select * from products where product_id = ${product_id}")
+  public List<CafeitemDTO> getProductInfo(String product_id);
 }
