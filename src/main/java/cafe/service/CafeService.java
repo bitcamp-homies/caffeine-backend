@@ -7,22 +7,28 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
+import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 
 public interface CafeService {
 
-  //JPA
-	List<CafeDTO> getCafeListAll();
+  // JPA
+  List<CafeDTO> getCafeListAll();
 
-  //MyBatis
+  // MyBatis
   List<CafeDTOMybatis> getCafeListAllMybatis();
-  
-  //MyBatis
+
+  // MyBatis
   public String NickNameCheck(Map<String, String> map);
-  
-  //MyBatis
+
+  // MyBatis
   public UsersDTO EmailCheck(Map<String, String> map);
-  //My Batis
+
+  // My Batis
   public int createMember(Map<String, String> map);
 
   List<CafeDTOMybatis> getCafeDistLocation();
@@ -31,7 +37,8 @@ public interface CafeService {
 
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(double userLong, double userLat);
 
-  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter, Boolean petFilter, Boolean parkingFilter);
+  List<CafeDTOCoordTemp> getCafesListBoundary(double userLong, double userLat, int boundary, Boolean openFilter,
+      Boolean petFilter, Boolean parkingFilter);
 
   void updateCoordMybatis(double longitude, double latitude, long cafe_id);
 
@@ -41,9 +48,71 @@ public interface CafeService {
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+
   public UsersDTO UserCheck(Map<String, String> map);
 
   public int updateMember(Map<String, String> map);
 
+  List<UsersDTO> getAllUser();
+
+  void updateUser(
+      int user_id, 
+      int business_reg_num,
+      String user_type, 
+      String name, 
+      String nickname, 
+      String email,
+      String password, 
+      String business_name, 
+      String business_address
+      );
+
+  CafeDTO getCafeByInsta(String insta_account);
+
+  List<CafeitemDTO> getCafeitem(Map<String, String> map);
+  
+  UsersDTO getMember(Map<String, String> map);
+  
+  UserProfileDTO selectProfileimg(Map<String, String> map);
+  
+  //웅비 해당 제품정보 가져오기
+  List<CafeitemDTO> getProductInfo(String product_id);
+
+  //웅비 결제 정보 저장
+  void paymentList(Map<String, String> map);
+
+
+void InsertProfileimg(Map<String, String> map);
+
+void updateProfileimg(Map<String, String> map);
+
+
+void InsertCafes(Map<String, Object> map2);
+
+CafesDTO getcafes(Map<String, String> map);
+
+List<Cafes_picsDTO> getcafefics(Map<String, String> map);
+
+Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
+
+void insertCafepics(Map<String, String> map);
+
+void updateCafepics(Map<String, String> map);
+
+int insertcafes_product_list(Map<String, String> map);
+
+int insertproducts(Map<String, String> map);
+
+ProductsDTO selectproducts(Map<String, String> map);
+
+Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
+
+void insertcafes_product_list_items(Map<String, String> map);
+
+void insertproducts_img(Map<String, String> map);
+
+
 }
+
+
 
