@@ -55,8 +55,10 @@ public interface SelectMapper {
       + "ST_Y(coord) AS latitude, "
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
-      + "from CafeDTO "
-      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
+      + "FROM CafeDTO "
+      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000 "
+      + "ORDER BY RAND() "
+      + "LIMIT 20")
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
 
   //풍혁0826 : 변경되는 반경 ( + filter ) 적용시켜서 List가져오기
