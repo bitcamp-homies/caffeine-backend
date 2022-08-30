@@ -15,6 +15,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
@@ -314,6 +315,18 @@ public class CafeController {
 	@PostMapping(value="/order/paymentList")
 	void paymentList(@RequestParam Map<String, String>map) {
 		 cafeService.paymentList(map);
+	}
+
+	//웅비 결제 정보 불러오기
+	@GetMapping(value="/admin/getOrderList")
+	public List<PaymentDTO> getOrderList(@RequestParam(value = "user_id") String user_id){
+		return cafeService.getOrderList(user_id);
+	}
+
+	//웅비 결제 정보 삭제하기
+	@PostMapping(value="/admin/deleteOrderList")
+	void deleteOrderList(@RequestParam Map<String, String>map) {
+		 	cafeService.deleteOrderList(map);
 	}
 }
 

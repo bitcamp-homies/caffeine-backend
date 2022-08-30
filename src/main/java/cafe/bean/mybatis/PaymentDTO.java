@@ -1,5 +1,7 @@
 package cafe.bean.mybatis;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -14,4 +16,5 @@ public class PaymentDTO {
  private int product_id;
  private int total_price;
  private int purchase_way; 
+ private Date create_At;
 }

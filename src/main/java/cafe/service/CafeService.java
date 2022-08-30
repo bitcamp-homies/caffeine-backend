@@ -7,6 +7,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
@@ -76,8 +77,13 @@ public interface CafeService {
   //웅비 결제 정보 저장
   void paymentList(Map<String, String> map);
 
+  //웅비 주문 정보 가져오기
+  List<PaymentDTO> getOrderList(String user_id);
 
-void InsertProfileimg(Map<String, String> map);
+  //웅비 주문정보 삭제하기
+  void deleteOrderList(Map<String, String>map);
+  
+  void InsertProfileimg(Map<String, String> map);
 
 void updateProfileimg(Map<String, String> map);
 
@@ -108,6 +114,8 @@ void insertproducts_img(Map<String, String> map);
 void cafesUpdate(Map<String, String> map);
 
 void usersinstaupdate(Map<String, String> map);
+
+
 
 
 }

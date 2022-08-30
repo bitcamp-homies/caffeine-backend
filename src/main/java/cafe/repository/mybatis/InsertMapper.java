@@ -16,6 +16,7 @@ public interface InsertMapper {
 			+ "values(#{user_type}, #{insta_account}, #{name}, #{nickname}, #{email}, #{password}, #{business_name}, #{business_reg_num}, #{business_address})")
 	public int createMember(Map<String, String> map);
 
+	//웅비 결제 정보 등록
 	@Insert("insert into payment(user_id, cafe_id, product_count, product_id, total_price, purchase_way)"
 			+ "values(#{user_id}, #{cafe_id}, #{product_count}, #{product_id}, #{total_price}, #{purchase_way})")
 	void paymentList(Map<String, String> map);
