@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public interface InsertMapper {
 	@Insert("insert into users_profile_img(profile_id, path,profile_img)"
 			+ "values(#{user_id},#{path},#{img})")
 	public void InsertProfileimg(Map<String, String> map);
-  
+
+	@Insert("insert into like_cafes(list_id, cafe_id) values ((select list_id from like_lists where user_id = (select user_id from users where email = #{email})), #{cafe_id})")
+	public void updateLikeList(@Param("cafe_id")int cafe_id, @Param("email")String email);
+
 
 }
