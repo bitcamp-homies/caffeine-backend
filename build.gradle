@@ -1,7 +1,8 @@
 plugins {
+	id 'java'
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
-	id 'java'
+  id 'application'
 }
 
 group = 'com.bitcamphomies'
@@ -29,6 +30,10 @@ dependencies {
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+springBoot {
+  buildInfo()
+}
+
+bootJar {
+  mainClassName = 'com.bitcamphomies.caffeine.CaffeineApplication'
 }
