@@ -65,6 +65,10 @@ public class CafeController {
 	  
 	  return findNickName;
   }
+  @GetMapping(value = "/cafe/UserCheck")
+  public UsersDTO UserCheck(@RequestParam Map<String,String>map) {
+	  return cafeService.UserCheck(map);
+  }
   	@GetMapping(value = "/cafe/EmailCheck")
 	public String EmailCheck(@RequestParam Map<String,String>map) {
 		UsersDTO userDTO = cafeService.EmailCheck(map);
@@ -80,19 +84,9 @@ public class CafeController {
   	
   	@PostMapping(value ="/cafe/createMember")
   	public void createMember(@RequestParam Map<String,String>map) {
+  		System.out.println(map);
   		UsersDTO usersDTO = null;
   		String business_address = map.get("business_address");
-  		String address[] = business_address.split(" ");
-  		int addres1number = address[0].indexOf("시");
-  		
-  		String address1 = address[0].substring(0,addres1number);
-  		String address2 = address[1];
-  		String address3 = address[2]+address[3];
-  		
-  		
-  		if(address[4] != "") {
-  			address3 = address[2]+address[3]+address[4];  			
-  		}
   		
   		String user_type = map.get("user_type");
   		if(user_type == "") {
@@ -112,6 +106,12 @@ public class CafeController {
   		}
   		//cafes생성
   		if(map.get("user_type").equals("business")) {
+  		  		String address[] = business_address.split(" "); 		
+  		  		String address1 = address[0];
+  		  		String address2 = address[1];
+  		  		String address3 = address[2]+address[3];
+  		  		String address4 = map.get("business_address1");
+
   			int user_id = usersDTO.getUser_id();
   			Map<String,Object>map2 = new HashMap<String,Object>();
   			map2.put("user_id", user_id);
@@ -119,13 +119,16 @@ public class CafeController {
   			map2.put("address1", address1);
   			map2.put("address2", address2);
   			map2.put("address3", address3);
+  			map2.put("address4", address4);
   			map2.put("about", "");
   			cafeService.InsertCafes(map2);  			
   		}
-
-  		
-  		
-//  		return cafeService.createMember(map);
+  	}
+  	
+  	@PostMapping(value ="/cafe/updateMember")
+  	public int updateMember(@RequestParam Map<String,String>map) {
+  		System.out.println(map);
+  		return cafeService.updateMember(map);
   	}
   	
   	@PostMapping(value ="/cafe/Login")

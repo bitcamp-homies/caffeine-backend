@@ -115,6 +115,10 @@ void cafesUpdate(Map<String, String> map);
 
 void usersinstaupdate(Map<String, String> map);
 
+UsersDTO UserCheck(Map<String, String> map);
+
+int updateMember(Map<String, String> map);
+
 
 
 
