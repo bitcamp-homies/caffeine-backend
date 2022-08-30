@@ -23,6 +23,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.service.CafeService;
@@ -266,6 +267,16 @@ public class CafeController {
 	@PostMapping(value="/order/paymentList")
 	void paymentList(@RequestParam Map<String, String>map) {
 		 cafeService.paymentList(map);
+	}
+	
+	@GetMapping(value = "/user/getUserAnalyticMybatis")
+	public List<UserDateDTO> getUserAnalytic(
+	  @RequestParam(value = "user_type")String user_type,  
+	  @RequestParam(value = "date_type")String date_type  
+    ){
+	  System.out.println("\n @LOG@ user_type : " + user_type + "\t date_type : " + date_type);
+	  List<UserDateDTO> list = cafeService.getUserAnalytic(user_type, date_type);
+	  return list;
 	}
 }
 

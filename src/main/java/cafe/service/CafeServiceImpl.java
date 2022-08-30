@@ -11,6 +11,7 @@ import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.PaymentDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.repository.jpa.CafeRepository;
@@ -203,4 +204,13 @@ public void paymentList(Map<String, String> map) {
   insertMapper.paymentList(map);
 }
 
+  @Override
+  public List<UserDateDTO> getUserAnalytic(String user_type, String date_type) {
+    if(date_type.equals("day")) {
+      return selectMapper.getUserAnalyticDay(user_type);
+    }else {
+      return selectMapper.getUserAnalyticMonth(user_type);
+    }
+    
+  }
 }
