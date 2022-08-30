@@ -1,14 +1,6 @@
 package cafe.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +15,12 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 import cafe.service.CafeService;
 
 @RestController
@@ -82,7 +78,21 @@ public class CafeController {
   	
   	
   	@PostMapping(value ="/cafe/createMember")
-  	public int createMember(@RequestParam Map<String,String>map) {
+  	public void createMember(@RequestParam Map<String,String>map) {
+  		UsersDTO usersDTO = null;
+  		String business_address = map.get("business_address");
+  		String address[] = business_address.split(" ");
+  		int addres1number = address[0].indexOf("시");
+  		
+  		String address1 = address[0].substring(0,addres1number);
+  		String address2 = address[1];
+  		String address3 = address[2]+address[3];
+  		
+  		
+  		if(address[4] != "") {
+  			address3 = address[2]+address[3]+address[4];  			
+  		}
+  		
   		String user_type = map.get("user_type");
   		if(user_type == "") {
   			user_type = "user";	
@@ -90,7 +100,31 @@ public class CafeController {
   			user_type = "business";
   		}
   		map.put("user_type", user_type);
-  		return cafeService.createMember(map);
+  		//회원가입과 동시에 user_id가져오기 위한 select
+  		Map<String,String> map1 = new HashMap<String,String>();
+  		String user_id1 = map.get("email");
+  		map1.put("user_id", user_id1);
+  		int num = cafeService.createMember(map);
+  		
+  		if(num != 0) {
+  			usersDTO = cafeService.getMember(map1);  			
+  		}
+  		//cafes생성
+  		if(map.get("user_type").equals("business")) {
+  			int user_id = usersDTO.getUser_id();
+  			Map<String,Object>map2 = new HashMap<String,Object>();
+  			map2.put("user_id", user_id);
+  			map2.put("cafe_name", map.get("business_name"));
+  			map2.put("address1", address1);
+  			map2.put("address2", address2);
+  			map2.put("address3", address3);
+  			map2.put("about", "");
+  			cafeService.InsertCafes(map2);  			
+  		}
+
+  		
+  		
+//  		return cafeService.createMember(map);
   	}
   	
   	@PostMapping(value ="/cafe/Login")
@@ -137,62 +171,6 @@ public class CafeController {
 		return cafeService.getCafeitem(map);
 	}
 	
-	@PostMapping(value ="cafe/kakaopay")
-	public String kakaopay(@RequestParam Map<String,String>map) {
-		String cid = map.get("cid");
-		String total_amount = map.get("total_amount");
-		String item_name = map.get("item_name");
-		String quantity = map.get("quantity");
-		String partner_order_id = map.get("partner_order_id");
-		String partner_user_id = map.get("partner_user_id");
-		String vat_amount = map.get("vat_amount");
-		String tax_free_amount = map.get("tax_free_amount");
-		String approval_url = map.get("approval_url");
-		String fail_url = map.get("fail_url");
-		String cancel_url = map.get("cancel_url");
-		
-		try {
-			URL address = new URL("http://kapi.kakao.com/v1/payment/ready");
-			HttpURLConnection serverConnection = (HttpURLConnection) address.openConnection();
-			serverConnection.setRequestMethod("POST");
-			serverConnection.setRequestProperty("Authorization", "KakaoAK 12659db36fb4e183b8d2a7e1a42c8b14");
-			serverConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			serverConnection.setDoOutput(true);
-			String parameter = "cid="+cid+
-							   "&total_amount="+total_amount+
-							   "&item_name="+item_name+
-							   "&quantity="+quantity+
-							   "&partner_order_id="+partner_order_id+
-							   "&partner_user_id="+partner_user_id+
-							   "&vat_amount="+vat_amount+
-							   "&tax_free_amount="+tax_free_amount+
-							   "&approval_url="+approval_url+
-							   "&fail_url="+fail_url+
-							   "&cancel_url="+cancel_url;
-			OutputStream output = serverConnection.getOutputStream();
-			DataOutputStream dataoutput = new DataOutputStream(output);
-			dataoutput.writeBytes(parameter);
-			dataoutput.close();
-			
-			int result = serverConnection.getResponseCode();
-			
-			InputStream input;
-			if(result == 200) { //정상 통신 200
-				input = serverConnection.getInputStream();
-			}else {
-				input = serverConnection.getErrorStream();
-			}
-			InputStreamReader reader = new InputStreamReader(input); //input 된것을 읽는다.
-			BufferedReader bufferedReader = new BufferedReader(reader);
-			return bufferedReader.readLine();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
 	
 	@PostMapping("/cafe/getMember")
 	public UsersDTO getMember(@RequestParam Map<String,String>map) {
@@ -226,6 +204,65 @@ public class CafeController {
 	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
   	}
 
+
+	
+	@PostMapping(value = "/cafe/getcafes")
+	public CafesDTO getcafes(@RequestParam Map<String,String>map) {
+		return cafeService.getcafes(map);
+	}
+	
+	@PostMapping(value = "/cafe/getcafefics")
+	public List<Cafes_picsDTO> getcafefics(@RequestParam Map<String,String>map) {
+		return cafeService.getcafefics(map);
+	}
+	
+	@PostMapping(value = "/cafe/getcafeficsprofile")
+	public Cafes_picsDTO getcafeficsprofile(@RequestParam Map<String,String>map) {
+		System.out.println(map);
+		return cafeService.getcafeficsprofile(map);
+	}
+	
+	@PostMapping(value = "/cafe/insertCafepics")
+	public void insertCafepics(@RequestParam Map<String,String>map) {
+		cafeService.insertCafepics(map);
+	}
+	
+	@PostMapping(value = "/cafe/updateCafepics")
+	public void updateCafepics(@RequestParam Map<String,String>map) {
+		System.out.println(map);
+		cafeService.updateCafepics(map);
+	}
+	
+	@PostMapping(value = "/cafe/insertcafes_product_list")
+	public Cafes_product_listDTO insertcafes_product_list(@RequestParam Map<String,String>map) {
+		int num = cafeService.insertcafes_product_list(map);
+		if(num <= 0) {
+			return null;
+		}else {
+		return cafeService.selectcafes_product_list(map);
+		}
+	}
+	
+	@PostMapping(value = "/cafe/insertproducts")
+	public ProductsDTO insertproducts(@RequestParam Map<String,String>map) {
+		int num = cafeService.insertproducts(map);
+		if(num <= 0) {
+			return null;
+		}else {
+			return cafeService.selectproducts(map);
+		}
+	}
+	
+	@PostMapping(value ="/cafe/insertcafes_product_list_items")
+	public void insertcafes_product_list_items(@RequestParam Map<String,String>map) {
+		cafeService.insertcafes_product_list_items(map);
+	}
+	
+	@PostMapping(value ="/cafe/insertproducts_img")
+	public void insertproducts_img(@RequestParam Map<String,String>map) {
+		cafeService.insertproducts_img(map);
+    }
+
 	@GetMapping(value = "/cafe/getAllUserMybatis")
 	public List<UsersDTO> getAllUser() {
 	  return cafeService.getAllUser();
@@ -254,6 +291,7 @@ public class CafeController {
 	public CafeDTO getCafeByInsta(@RequestParam(value = "insta_account")String insta_account) {
 	  CafeDTO cafe = cafeService.getCafeByInsta(insta_account);
 	  return cafe;
+
 	}
 
 	//웅비 해당 제품 정보 가져오기

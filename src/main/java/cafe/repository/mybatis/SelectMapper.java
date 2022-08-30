@@ -13,8 +13,12 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 @Repository
 @Transactional
 @Mapper
@@ -99,6 +103,22 @@ public interface SelectMapper {
   
   @Select("Select * from users_profile_img where profile_id = #{user_id}")
   public UserProfileDTO selectProfileimg(Map<String, String> map);
+  
+  @Select("Select * from cafes where user_id = ${user_id}")
+  public CafesDTO getcafes(Map<String, String> map);
+
+  @Select("Select * from cafes_pics where cafe_id = ${cafe_id}")
+  public List<Cafes_picsDTO> getcafefics(Map<String, String> map);
+
+  @Select("Select * from cafes_pics where cafe_id =${cafe_id} and  img_file like '%profile%'")
+  public Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
+
+  @Select("Select * from products where product_name_kor=#{product_name_kor} and product_name_eng = #{product_name_eng}"
+  		+ "and category=#{category} and subcategory=#{subcategory} and price = #{price}")
+  public ProductsDTO selectproducts(Map<String, String> map);
+
+  @Select("Select * from cafes_product_list where cafe_id=${cafe_id}")
+  public Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
 
   @Select("SELECT * from users")
   public List<UsersDTO> getAllUser();
