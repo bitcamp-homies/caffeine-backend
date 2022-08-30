@@ -190,10 +190,6 @@ public class CafeServiceImpl implements CafeService {
   }
   
   
-  @Override
-  public void updateProfileimg(Map<String, String> map) {
-  	updateMapper.updateProfileimg(map);
-  }
 
 //웅비 해당 제품정보 불러오기
 @Override
@@ -208,17 +204,6 @@ public void paymentList(Map<String, String> map) {
 }
 
 
-
-@Override
-public void InsertProfileimg(Map<String, String> map) {
-		insertMapper.InsertProfileimg(map);
-}
-
-
-@Override
-public UserProfileDTO selectProfileimg(Map<String, String> map) {
-	return selectMapper.selectProfileimg(map);
-}
 
 
 @Override
@@ -278,13 +263,13 @@ public int insertproducts(Map<String, String> map) {
 
 
 @Override
-public ProductsDTO selectproducts(Map<String, String> map) {
+public List<ProductsDTO> selectproducts(Map<String, String> map) {
 	return selectMapper.selectproducts(map);
 }
 
 
 @Override
-public Cafes_product_listDTO selectcafes_product_list(Map<String, String> map) {
+public List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map) {
 	return selectMapper.selectcafes_product_list(map);
 }
 
@@ -302,5 +287,17 @@ public void insertproducts_img(Map<String, String> map) {
 	
 }
 
+
+@Override
+public void cafesUpdate(Map<String, String> map) {
+	updateMapper.cafesUpdate(map);
+}
+
+
+@Override
+public void usersinstaupdate(Map<String, String> map) {
+	updateMapper.usersinstaupdate(map);
+	
+}
 
 }

@@ -24,7 +24,12 @@ import cafe.bean.mybatis.Cafes_product_listDTO;
 @Mapper
 public interface SelectMapper { 
 
-  @Select("SELECT * FROM CafeDTO")
+  @Select("SELECT c.*, u.insta_account, GROUP_CONCAT(cp.img_file) AS img_file, cp.file_path, cc.cafe_coord AS coord\r\n"
+  		+ "FROM cafes c\r\n"
+  		+ "INNER JOIN users u ON c.user_id = u.user_id\r\n"
+  		+ "INNER JOIN cafes_pics cp ON c.cafe_id = cp.cafe_id\r\n"
+  		+ "LEFT JOIN cafes_coord cc ON c.cafe_id = cc.cafe_id\r\n"
+  		+ "GROUP BY c.cafe_id")
   public List<CafeDTOMybatis> getCafeListAll();
 
   @Select("select * from users where nickname =#{NickName}")
@@ -115,10 +120,10 @@ public interface SelectMapper {
 
   @Select("Select * from products where product_name_kor=#{product_name_kor} and product_name_eng = #{product_name_eng}"
   		+ "and category=#{category} and subcategory=#{subcategory} and price = #{price}")
-  public ProductsDTO selectproducts(Map<String, String> map);
+  public List<ProductsDTO> selectproducts(Map<String, String> map);
 
   @Select("Select * from cafes_product_list where cafe_id=${cafe_id}")
-  public Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
+  public List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
 
   @Select("SELECT * from users")
   public List<UsersDTO> getAllUser();

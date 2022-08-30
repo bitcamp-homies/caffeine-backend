@@ -204,7 +204,6 @@ public class CafeController {
 	    cafeService.updateCafeinfo(opentime, closetime, pet, parking, cafe_id);
   	}
 
-
 	
 	@PostMapping(value = "/cafe/getcafes")
 	public CafesDTO getcafes(@RequestParam Map<String,String>map) {
@@ -218,7 +217,6 @@ public class CafeController {
 	
 	@PostMapping(value = "/cafe/getcafeficsprofile")
 	public Cafes_picsDTO getcafeficsprofile(@RequestParam Map<String,String>map) {
-		System.out.println(map);
 		return cafeService.getcafeficsprofile(map);
 	}
 	
@@ -229,40 +227,53 @@ public class CafeController {
 	
 	@PostMapping(value = "/cafe/updateCafepics")
 	public void updateCafepics(@RequestParam Map<String,String>map) {
-		System.out.println(map);
 		cafeService.updateCafepics(map);
 	}
 	
 	@PostMapping(value = "/cafe/insertcafes_product_list")
-	public Cafes_product_listDTO insertcafes_product_list(@RequestParam Map<String,String>map) {
-		int num = cafeService.insertcafes_product_list(map);
-		if(num <= 0) {
-			return null;
-		}else {
-		return cafeService.selectcafes_product_list(map);
-		}
+	public int insertcafes_product_list(@RequestParam Map<String,String>map) {
+		return cafeService.insertcafes_product_list(map); 
 	}
 	
 	@PostMapping(value = "/cafe/insertproducts")
-	public ProductsDTO insertproducts(@RequestParam Map<String,String>map) {
-		int num = cafeService.insertproducts(map);
-		if(num <= 0) {
-			return null;
-		}else {
-			return cafeService.selectproducts(map);
-		}
+	public int insertproducts(@RequestParam Map<String,String>map) {
+		return cafeService.insertproducts(map);
 	}
 	
 	@PostMapping(value ="/cafe/insertcafes_product_list_items")
 	public void insertcafes_product_list_items(@RequestParam Map<String,String>map) {
+		System.out.println(map);
 		cafeService.insertcafes_product_list_items(map);
 	}
 	
 	@PostMapping(value ="/cafe/insertproducts_img")
 	public void insertproducts_img(@RequestParam Map<String,String>map) {
+		System.out.println(map);
 		cafeService.insertproducts_img(map);
-    }
-
+	}
+	
+	@PostMapping(value = "/cafe/selectcafes_product_list")
+	public List<Cafes_product_listDTO> selectcafes_product_list(@RequestParam Map<String,String>map) {
+		System.out.println(cafeService.selectcafes_product_list(map));
+		return cafeService.selectcafes_product_list(map);
+	}
+	
+	@PostMapping(value = "/cafe/selectproducts")
+	public List<ProductsDTO> selectproducts(@RequestParam Map<String,String>map) {
+		System.out.println(cafeService.selectproducts(map));
+		return cafeService.selectproducts(map);
+	}
+	
+	@PostMapping(value = "/cafe/cafesUpdate")
+	public void cafesUpdate(@RequestParam Map<String,String>map) {
+		cafeService.cafesUpdate(map);
+	}
+	
+	@PostMapping(value = "/cafe/usersinstaupdate")
+	public void usersinstaupdate(@RequestParam Map<String,String>map) {
+		cafeService.usersinstaupdate(map);
+	}
+	
 	@GetMapping(value = "/cafe/getAllUserMybatis")
 	public List<UsersDTO> getAllUser() {
 	  return cafeService.getAllUser();
@@ -291,7 +302,6 @@ public class CafeController {
 	public CafeDTO getCafeByInsta(@RequestParam(value = "insta_account")String insta_account) {
 	  CafeDTO cafe = cafeService.getCafeByInsta(insta_account);
 	  return cafe;
-
 	}
 
 	//웅비 해당 제품 정보 가져오기

@@ -81,7 +81,6 @@ void InsertProfileimg(Map<String, String> map);
 
 void updateProfileimg(Map<String, String> map);
 
-
 void InsertCafes(Map<String, Object> map2);
 
 CafesDTO getcafes(Map<String, String> map);
@@ -98,13 +97,17 @@ int insertcafes_product_list(Map<String, String> map);
 
 int insertproducts(Map<String, String> map);
 
-ProductsDTO selectproducts(Map<String, String> map);
+List<ProductsDTO> selectproducts(Map<String, String> map);
 
-Cafes_product_listDTO selectcafes_product_list(Map<String, String> map);
+List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
 
 void insertcafes_product_list_items(Map<String, String> map);
 
 void insertproducts_img(Map<String, String> map);
+
+void cafesUpdate(Map<String, String> map);
+
+void usersinstaupdate(Map<String, String> map);
 
 
 }
