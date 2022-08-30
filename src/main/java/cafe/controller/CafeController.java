@@ -328,5 +328,10 @@ public class CafeController {
 	void deleteOrderList(@RequestParam Map<String, String>map) {
 		 	cafeService.deleteOrderList(map);
 	}
+	@PostMapping(value = "/cafe/getLikeList")
+	public List<Map<Object, Object>> getLikeList(@RequestParam(value = "email") String email) {
+		System.out.println(email);
+		return cafeService.getLikeList(email);
+	}
 }
 

@@ -139,4 +139,9 @@ public interface SelectMapper {
   // 웅비 결제 정보 가져오기
   @Select("SELECT payment.payment_num, payment.user_id ,payment.cafe_id ,payment.product_count ,payment.product_id ,payment.total_price ,payment.purchase_way,payment.create_At,products.product_name_kor from payment AS payment left outer join products  as products on payment.product_id = products.product_id")
   public List<PaymentDTO> getOrderList(String user_id);
+
+
+  @Select("select cafe_id from like_cafes where list_id = (select list_id from like_lists where user_id = (select user_id from users where email = #{email}))")
+  public List<Map<Object, Object>> getLikeList(@Param("email") String email);
+	
 }

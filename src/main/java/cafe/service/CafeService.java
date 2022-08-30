@@ -115,6 +115,8 @@ void cafesUpdate(Map<String, String> map);
 
 void usersinstaupdate(Map<String, String> map);
 
+List<Map<Object, Object>> getLikeList(String email);
+
 
 
 

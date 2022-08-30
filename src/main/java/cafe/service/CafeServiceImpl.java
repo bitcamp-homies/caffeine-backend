@@ -313,6 +313,13 @@ public void deleteOrderList(Map<String, String> map) {
 }
 
 
+@Override
+public List<Map<Object, Object>> getLikeList(String email) {
+	//System.out.println(selectMapper.getLikeList(email));
+	return selectMapper.getLikeList(email);
+}
+
+
 
 
 }
