@@ -125,5 +125,18 @@ public class CafeServiceImpl implements CafeService {
   public List<CafeitemDTO> getCafeitemList(Map<String, String> map) {
   	return selectMapper.getCafeitemList(map);
   }
+
+
+@Override
+public UsersDTO UserCheck(Map<String, String> map) {
+	
+	return selectMapper.UserCheck(map);
+}
+
+
+@Override
+public int updateMember(Map<String, String> map) {
+	return updateMapper.updateMember(map);
+}
   
 }

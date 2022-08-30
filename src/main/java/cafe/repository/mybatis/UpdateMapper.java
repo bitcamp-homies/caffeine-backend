@@ -1,5 +1,7 @@
 package cafe.repository.mybatis;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -23,5 +25,9 @@ public interface UpdateMapper {
       @Param("parking")String parking, 
       @Param("cafe_id")int cafe_id
       );
+  
+  
+  	@Update("UPDATE users SET name = #{name}, nickname=#{nickname}, business_reg_num=#{business_reg_num}, business_name=#{business_name}, business_address=#{business_address}, business_address1=#{business_address1}, insta_account=#{insta_account} where email=#{email}")
+  	public int updateMember(Map<String, String> map);
  
 }

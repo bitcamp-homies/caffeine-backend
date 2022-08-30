@@ -59,6 +59,11 @@ public class CafeController {
 	  
 	  return findNickName;
   }
+  
+	  @GetMapping(value = "/cafe/UserCheck")
+	  public UsersDTO UserCheck(@RequestParam Map<String,String>map) {
+		  return cafeService.UserCheck(map);
+	  }
   	@GetMapping(value = "/cafe/EmailCheck")
 	public String EmailCheck(@RequestParam Map<String,String>map) {
 		UsersDTO userDTO = cafeService.EmailCheck(map);
@@ -82,6 +87,12 @@ public class CafeController {
   		}
   		map.put("user_type", user_type);
   		return cafeService.createMember(map);
+  	}
+  	
+  	@PostMapping(value ="/cafe/updateMember")
+  	public int updateMember(@RequestParam Map<String,String>map) {
+  		System.out.println(map);
+  		return cafeService.updateMember(map);
   	}
   	
   	@PostMapping(value ="/cafe/Login")

@@ -82,4 +82,7 @@ public interface SelectMapper {
   		+ "")
   public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+  @Select("select * from users where email =#{Email}")
+  public UsersDTO UserCheck(Map<String, String> map);
+
 }

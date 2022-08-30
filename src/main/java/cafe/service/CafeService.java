@@ -41,5 +41,9 @@ public interface CafeService {
 
   List<CafeitemDTO> getCafeitemList(Map<String, String> map);
 
+  public UsersDTO UserCheck(Map<String, String> map);
+
+  public int updateMember(Map<String, String> map);
+
 }
 
