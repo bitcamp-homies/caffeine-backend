@@ -54,76 +54,76 @@ public interface CafeService {
   List<UsersDTO> getAllUser();
 
   void updateUser(
-      int user_id, 
+      int user_id,
       int business_reg_num,
-      String user_type, 
-      String name, 
-      String nickname, 
+      String user_type,
+      String name,
+      String nickname,
       String email,
-      String password, 
-      String business_name, 
-      String business_address
-      );
+      String password,
+      String business_name,
+      String business_address);
 
   CafeDTO getCafeByInsta(String insta_account);
 
   List<CafeitemDTO> getCafeitem(Map<String, String> map);
-  
+
   UsersDTO getMember(Map<String, String> map);
-  
+
   UserProfileDTO selectProfileimg(Map<String, String> map);
-  
-  
-  //웅비 해당 제품정보 가져오기
+
+  // 웅비 해당 제품정보 가져오기
   List<CafeitemDTO> getProductInfo(String product_id);
 
-  //웅비 결제 정보 저장
+  // 웅비 결제 정보 저장
   void paymentList(Map<String, String> map);
 
-  //웅비 주문 정보 가져오기
+  // 웅비 주문 정보 가져오기
   List<PaymentDTO> getOrderList(String user_id);
 
-  //웅비 주문정보 삭제하기
-  void deleteOrderList(Map<String, String>map);
-  
+  // 웅비 주문정보 삭제하기
+  void deleteOrderList(Map<String, String> map);
+
   void InsertProfileimg(Map<String, String> map);
-  
+
   void updateProfileimg(Map<String, String> map);
-  
+
   List<UserDateDTO> getUserAnalytic(String user_type, String date_type);
 
   void increaeVisit();
 
+  UsersDTO UserCheck(Map<String, String> map);
+
+  int updateMember(Map<String, String> map);
+
   List<AnalyticVisitDTO> getVisitAnalytic(String dateFilter);
+
   void InsertCafes(Map<String, Object> map2);
-  
+
   CafesDTO getcafes(Map<String, String> map);
-  
+
   List<Cafes_picsDTO> getcafefics(Map<String, String> map);
-  
+
   Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
-  
+
   void insertCafepics(Map<String, String> map);
-  
+
   void updateCafepics(Map<String, String> map);
-  
+
   int insertcafes_product_list(Map<String, String> map);
-  
+
   int insertproducts(Map<String, String> map);
-  
+
   List<ProductsDTO> selectproducts(Map<String, String> map);
-  
+
   List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
-  
+
   void insertcafes_product_list_items(Map<String, String> map);
-  
+
   void insertproducts_img(Map<String, String> map);
-  
+
   void cafesUpdate(Map<String, String> map);
-  
+
   void usersinstaupdate(Map<String, String> map);
 
 }
-
-
-
