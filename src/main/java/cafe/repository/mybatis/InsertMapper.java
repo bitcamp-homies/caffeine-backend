@@ -50,5 +50,7 @@ public interface InsertMapper {
 			+ "values(${product_id},#{img_file},#{file_path})")
 	public void insertproducts_img(Map<String, String> map);
   
+	@Insert("INSERT INTO analytic_visit VALUES(DATE_FORMAT(now(), '%Y-%m-%d'), 1)")
+	public void createRowAnalyticVisit();
 
 }

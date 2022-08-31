@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -183,12 +184,12 @@ public class CafeController {
 	public void InsertProfileimg(@RequestParam Map<String,String>map) {
 		cafeService.InsertProfileimg(map);
 	}
-	
 
 	@PostMapping("/cafe/selectProfileimg")
 	public UserProfileDTO selectProfileimg(@RequestParam Map<String,String>map) {
 		return cafeService.selectProfileimg(map);
 	}
+	
 	@PostMapping("/cafe/updateProfileimg")
 	public void updateProfileimg(@RequestParam Map<String,String>map) {
 		cafeService.updateProfileimg(map);
@@ -334,11 +335,24 @@ public class CafeController {
   public List<UserDateDTO> getUserAnalytic(
     @RequestParam(value = "user_type")String user_type,  
 	  @RequestParam(value = "date_type")String date_type  
-  ){
-	  System.out.println("\n @LOG@ user_type : " + user_type + "\t date_type : " + date_type);
+    ){
 	  List<UserDateDTO> list = cafeService.getUserAnalytic(user_type, date_type);
 	  return list;
-  }
+	}
+	
+	@GetMapping(value = "/cafe/increaeVisitMybatis")
+	public void increaeVisit() {
+	  cafeService.increaeVisit();
+	  
+	  return ;
+	}
+	
+	@GetMapping(value = "/cafe/getVisitAnalyticMybatis")
+	public List<AnalyticVisitDTO> getVisitAnalytic(
+	  @RequestParam(value = "dateFilter")String dateFilter  
+    ){
+	  return cafeService.getVisitAnalytic(dateFilter);
+	}
   
 }
 

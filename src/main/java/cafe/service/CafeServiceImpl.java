@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -193,122 +194,122 @@ public class CafeServiceImpl implements CafeService {
   
   
 
-//웅비 해당 제품정보 불러오기
-@Override
-public List<CafeitemDTO> getProductInfo(String product_id) {
-  return selectMapper.getProductInfo(product_id);
-}
-
-//웅비 결제정보 저장하기
-@Override
-public void paymentList(Map<String, String> map) {
-  insertMapper.paymentList(map);
-}
-
-@Override
-public void updateProfileimg(Map<String, String> map) {
-	updateMapper.updateProfileimg(map);
-
-}
-
-
-@Override
-public void InsertCafes(Map<String, Object> map2) {
-	insertMapper.InsertCafes(map2);
-	
-}
-
-
-@Override
-public CafesDTO getcafes(Map<String, String> map) {
-	return selectMapper.getcafes(map);
-}
-
-
-@Override
-public List<Cafes_picsDTO> getcafefics(Map<String, String> map) {
-	return selectMapper.getcafefics(map);
-}
-
-
-@Override
-public Cafes_picsDTO getcafeficsprofile(Map<String, String> map) {
-	return selectMapper.getcafeficsprofile(map);
-}
-
-
-@Override
-public void insertCafepics(Map<String, String> map) {
-	insertMapper.insertCafepics(map);
-}
-
-
-@Override
-public void updateCafepics(Map<String, String> map) {
-	updateMapper.updateCafepics(map);
-}
-
-
-@Override
-public int insertcafes_product_list(Map<String, String> map) {
-	return insertMapper.insertcafes_product_list(map);
-}
-
-
-@Override
-public int insertproducts(Map<String, String> map) {
-	return insertMapper.insertproducts(map);
-}
-
-
-@Override
-public List<ProductsDTO> selectproducts(Map<String, String> map) {
-	return selectMapper.selectproducts(map);
-}
-
-
-@Override
-public List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map) {
-	return selectMapper.selectcafes_product_list(map);
-}
-
-
-@Override
-public void insertcafes_product_list_items(Map<String, String> map) {
-	insertMapper.insertcafes_product_list_items(map);
-	
-}
-
-
-@Override
-public void insertproducts_img(Map<String, String> map) {
-	insertMapper.insertproducts_img(map);
-	
-}
-
-
-@Override
-public void cafesUpdate(Map<String, String> map) {
-	updateMapper.cafesUpdate(map);
-}
-
-
-@Override
-public void usersinstaupdate(Map<String, String> map) {
-	updateMapper.usersinstaupdate(map);
-	
-}
-
-//웅비 결제정보 가져오기
-@Override
-public List<PaymentDTO> getOrderList(String user_id) {
-  return selectMapper.getOrderList(user_id);
-}
-@Override
-public void deleteOrderList(Map<String, String> map) {
-  deleteMapper.deleteOrderList(map);
+  //웅비 해당 제품정보 불러오기
+  @Override
+  public List<CafeitemDTO> getProductInfo(String product_id) {
+    return selectMapper.getProductInfo(product_id);
+  }
   
-}
+  //웅비 결제정보 저장하기
+  @Override
+  public void paymentList(Map<String, String> map) {
+    insertMapper.paymentList(map);
+  }
+
+  @Override
+  public void updateProfileimg(Map<String, String> map) {
+  	updateMapper.updateProfileimg(map);
+  
+  }
+  
+  
+  @Override
+  public void InsertCafes(Map<String, Object> map2) {
+  	insertMapper.InsertCafes(map2);
+  	
+  }
+  
+  
+  @Override
+  public CafesDTO getcafes(Map<String, String> map) {
+  	return selectMapper.getcafes(map);
+  }
+  
+  
+  @Override
+  public List<Cafes_picsDTO> getcafefics(Map<String, String> map) {
+  	return selectMapper.getcafefics(map);
+  }
+  
+  
+  @Override
+  public Cafes_picsDTO getcafeficsprofile(Map<String, String> map) {
+  	return selectMapper.getcafeficsprofile(map);
+  }
+  
+  
+  @Override
+  public void insertCafepics(Map<String, String> map) {
+  	insertMapper.insertCafepics(map);
+  }
+  
+  
+  @Override
+  public void updateCafepics(Map<String, String> map) {
+  	updateMapper.updateCafepics(map);
+  }
+  
+  
+  @Override
+  public int insertcafes_product_list(Map<String, String> map) {
+  	return insertMapper.insertcafes_product_list(map);
+  }
+  
+  
+  @Override
+  public int insertproducts(Map<String, String> map) {
+  	return insertMapper.insertproducts(map);
+  }
+  
+  
+  @Override
+  public List<ProductsDTO> selectproducts(Map<String, String> map) {
+  	return selectMapper.selectproducts(map);
+  }
+  
+  
+  @Override
+  public List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map) {
+  	return selectMapper.selectcafes_product_list(map);
+  }
+  
+  
+  @Override
+  public void insertcafes_product_list_items(Map<String, String> map) {
+  	insertMapper.insertcafes_product_list_items(map);
+  	
+  }
+  
+  
+  @Override
+  public void insertproducts_img(Map<String, String> map) {
+  	insertMapper.insertproducts_img(map);
+  	
+  }
+  
+  
+  @Override
+  public void cafesUpdate(Map<String, String> map) {
+  	updateMapper.cafesUpdate(map);
+  }
+  
+  
+  @Override
+  public void usersinstaupdate(Map<String, String> map) {
+  	updateMapper.usersinstaupdate(map);
+  	
+  }
+  
+  //웅비 결제정보 가져오기
+  @Override
+  public List<PaymentDTO> getOrderList(String user_id) {
+    return selectMapper.getOrderList(user_id);
+  }
+  @Override
+  public void deleteOrderList(Map<String, String> map) {
+    deleteMapper.deleteOrderList(map);
+    
+  }
 
   @Override
   public List<UserDateDTO> getUserAnalytic(String user_type, String date_type) {
@@ -318,6 +319,29 @@ public void deleteOrderList(Map<String, String> map) {
       return selectMapper.getUserAnalyticMonth(user_type);
     }
 
+  }
+
+  @Override
+  public void increaeVisit() {
+    //풍혁0831 : visit table에서 오늘 날짜의 튜플이 존재하는지 확인 먼저해야된다. 
+    int isAlready = selectMapper.getTodayVisitNum();
+//    System.out.println("\n @ LOG @ today visit num : " + isAlready);
+    if(isAlready > 0) {
+//      System.out.println("\n 오늘 날짜의 튜플이 이미 존재합니다. 방문자수를 증가시키겠습니다");
+      updateMapper.increaseTodayVisitCnt();
+    }else {
+//      System.out.println("\n 오늘 날짜의 튜플이 없습니다.튜플을 생성하고 방문자수를 증가시키겠습니다");
+      insertMapper.createRowAnalyticVisit();
+    }
+  }
+  
+  @Override
+  public List<AnalyticVisitDTO> getVisitAnalytic(String dateFilter) {
+    if(dateFilter.equals("day")) {
+      return selectMapper.getVisitAnalyticDay();
+    }else {
+      return selectMapper.getVisitAnalyticMonth();
+    }
   }
 
 }

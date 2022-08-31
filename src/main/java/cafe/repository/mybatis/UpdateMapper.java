@@ -63,4 +63,7 @@ public interface UpdateMapper {
   @Update("UPDATE users SET insta_account = #{insta_account} where user_id = ${user_id}")
   void usersinstaupdate(Map<String, String> map);
   
+  @Update("UPDATE analytic_visit SET cnt = cnt + 1 WHERE date_row = DATE_FORMAT(now(), '%Y-%m-%d')")
+  void increaseTodayVisitCnt();
+  
 }

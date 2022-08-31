@@ -10,12 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
@@ -93,9 +95,7 @@ public interface SelectMapper {
         + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
         + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
         + "WHERE c.cafe_id = ${cafe_id}")
-  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
-
-
+  public List<CafeitemDTO> getCafeitemList(Map<String, String > map);
   
   @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
         + "FROM cafes c\r\n"
@@ -141,4 +141,24 @@ public interface SelectMapper {
   // 웅비 결제 정보 가져오기
   @Select("SELECT payment.payment_num, payment.user_id ,payment.cafe_id ,payment.product_count ,payment.product_id ,payment.total_price ,payment.purchase_way,payment.create_At,products.product_name_kor from payment AS payment left outer join products  as products on payment.product_id = products.product_id")
   public List<PaymentDTO> getOrderList(String user_id);
+  
+  @Select("SELECT create_date, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY create_date ORDER BY create_date")
+  public List<UserDateDTO> getUserAnalyticDay(
+      @Param("user_type")String user_type
+  );
+  
+  @Select("SELECT month(create_date) as month, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY month(create_date) ORDER BY month(create_date)")
+  public List<UserDateDTO> getUserAnalyticMonth(
+      @Param("user_type")String user_type
+  );
+  
+  @Select("SELECT count(*) FROM analytic_visit WHERE date_row = DATE_FORMAT(now(), '%Y-%m-%d')")
+  public int getTodayVisitNum();
+  
+  @Select("SELECT * FROM analytic_visit")
+  public List<AnalyticVisitDTO> getVisitAnalyticDay();
+  
+  @Select("SELECT month(date_row) as month, sum(cnt) as cnt FROM analytic_visit group by(month(date_row))")
+  public List<AnalyticVisitDTO> getVisitAnalyticMonth();
+  
 }

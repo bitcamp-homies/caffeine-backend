@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -72,6 +73,7 @@ public interface CafeService {
   
   UserProfileDTO selectProfileimg(Map<String, String> map);
   
+  
   //웅비 해당 제품정보 가져오기
   List<CafeitemDTO> getProductInfo(String product_id);
 
@@ -90,36 +92,36 @@ public interface CafeService {
   
   List<UserDateDTO> getUserAnalytic(String user_type, String date_type);
 
-void InsertCafes(Map<String, Object> map2);
+  void increaeVisit();
 
-CafesDTO getcafes(Map<String, String> map);
-
-List<Cafes_picsDTO> getcafefics(Map<String, String> map);
-
-Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
-
-void insertCafepics(Map<String, String> map);
-
-void updateCafepics(Map<String, String> map);
-
-int insertcafes_product_list(Map<String, String> map);
-
-int insertproducts(Map<String, String> map);
-
-List<ProductsDTO> selectproducts(Map<String, String> map);
-
-List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
-
-void insertcafes_product_list_items(Map<String, String> map);
-
-void insertproducts_img(Map<String, String> map);
-
-void cafesUpdate(Map<String, String> map);
-
-void usersinstaupdate(Map<String, String> map);
-
-
-
+  List<AnalyticVisitDTO> getVisitAnalytic(String dateFilter);
+  void InsertCafes(Map<String, Object> map2);
+  
+  CafesDTO getcafes(Map<String, String> map);
+  
+  List<Cafes_picsDTO> getcafefics(Map<String, String> map);
+  
+  Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
+  
+  void insertCafepics(Map<String, String> map);
+  
+  void updateCafepics(Map<String, String> map);
+  
+  int insertcafes_product_list(Map<String, String> map);
+  
+  int insertproducts(Map<String, String> map);
+  
+  List<ProductsDTO> selectproducts(Map<String, String> map);
+  
+  List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
+  
+  void insertcafes_product_list_items(Map<String, String> map);
+  
+  void insertproducts_img(Map<String, String> map);
+  
+  void cafesUpdate(Map<String, String> map);
+  
+  void usersinstaupdate(Map<String, String> map);
 
 }
 
