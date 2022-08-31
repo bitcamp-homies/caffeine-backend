@@ -13,6 +13,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
@@ -85,15 +86,13 @@ public interface SelectMapper {
   public UsersDTO Login(Map<String, String> map);
   
   @Select("SELECT c.cafe_id, p.*, pi2.*,cpli.recommended\r\n"
+  public List<CafeitemDTO> getCafeitemList(Map<String, String > map);
         + "FROM cafes c\r\n"
         + "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
         + "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
         + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
         + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
         + "WHERE c.cafe_id = ${cafe_id}")
-  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
-
-
   
   @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
         + "FROM cafes c\r\n"
@@ -142,4 +141,15 @@ public interface SelectMapper {
 
   @Select("select * from users where email =#{Email}")
   public UsersDTO UserCheck(Map<String, String> map);
+}
+  
+  @Select("SELECT create_date, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY create_date ORDER BY create_date")
+  public List<UserDateDTO> getUserAnalyticDay(
+      @Param("user_type")String user_type
+  );
+  
+  @Select("SELECT month(create_date) as month, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY month(create_date) ORDER BY month(create_date)")
+  public List<UserDateDTO> getUserAnalyticMonth(
+      @Param("user_type")String user_type
+  );
 }

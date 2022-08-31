@@ -14,6 +14,7 @@ import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.PaymentDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
@@ -204,9 +205,6 @@ public void paymentList(Map<String, String> map) {
   insertMapper.paymentList(map);
 }
 
-
-
-
 @Override
 public void updateProfileimg(Map<String, String> map) {
 	updateMapper.updateProfileimg(map);
@@ -312,6 +310,13 @@ public void deleteOrderList(Map<String, String> map) {
   
 }
 
+  @Override
+  public List<UserDateDTO> getUserAnalytic(String user_type, String date_type) {
+    if(date_type.equals("day")) {
+      return selectMapper.getUserAnalyticDay(user_type);
+    }else {
+      return selectMapper.getUserAnalyticMonth(user_type);
+    }
 
 @Override
 public UsersDTO UserCheck(Map<String, String> map) {
@@ -323,8 +328,5 @@ public UsersDTO UserCheck(Map<String, String> map) {
 public int updateMember(Map<String, String> map) {
 	return updateMapper.updateMember(map);
 }
-
-
-
 
 }

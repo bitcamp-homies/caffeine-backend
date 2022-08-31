@@ -7,6 +7,7 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
@@ -85,7 +86,13 @@ public interface CafeService {
   
   void InsertProfileimg(Map<String, String> map);
 
-void updateProfileimg(Map<String, String> map);
+  void updateProfileimg(Map<String, String> map);
+  
+  void InsertProfileimg(Map<String, String> map);
+  
+  void updateProfileimg(Map<String, String> map);
+  
+  List<UserDateDTO> getUserAnalytic(String user_type, String date_type);
 
 void InsertCafes(Map<String, Object> map2);
 
