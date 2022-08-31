@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Mapper
 public interface InsertMapper {
 
-	@Insert("insert into users(user_type, insta_account, name, nickname, email, password, business_name, business_reg_num, business_address)"
-			+ "values(#{user_type}, #{insta_account}, #{name}, #{nickname}, #{email}, #{password}, #{business_name}, #{business_reg_num}, #{business_address})")
+	@Insert("insert into users(user_type, insta_account, name, nickname, email, password, business_name, business_reg_num, business_address, business_address1)"
+			+ "values(#{user_type}, #{insta_account}, #{name}, #{nickname}, #{email}, #{password}, #{business_name}, #{business_reg_num}, #{business_address}, #{business_address1})")
 	public int createMember(Map<String, String> map);
 
 	//웅비 결제 정보 등록

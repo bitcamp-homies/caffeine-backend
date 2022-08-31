@@ -318,6 +318,15 @@ public void deleteOrderList(Map<String, String> map) {
       return selectMapper.getUserAnalyticMonth(user_type);
     }
 
-  }
+@Override
+public UsersDTO UserCheck(Map<String, String> map) {
+	return selectMapper.UserCheck(map);
+}
+
+
+@Override
+public int updateMember(Map<String, String> map) {
+	return updateMapper.updateMember(map);
+}
 
 }

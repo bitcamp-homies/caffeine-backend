@@ -138,6 +138,10 @@ public interface SelectMapper {
   // 웅비 결제 정보 가져오기
   @Select("SELECT payment.payment_num, payment.user_id ,payment.cafe_id ,payment.product_count ,payment.product_id ,payment.total_price ,payment.purchase_way,payment.create_At,products.product_name_kor from payment AS payment left outer join products  as products on payment.product_id = products.product_id")
   public List<PaymentDTO> getOrderList(String user_id);
+
+  @Select("select * from users where email =#{Email}")
+  public UsersDTO UserCheck(Map<String, String> map);
+}
   
   @Select("SELECT create_date, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY create_date ORDER BY create_date")
   public List<UserDateDTO> getUserAnalyticDay(
@@ -149,4 +153,3 @@ public interface SelectMapper {
       @Param("user_type")String user_type
   );
 }
-
