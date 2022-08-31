@@ -85,10 +85,6 @@ public interface CafeService {
   void deleteOrderList(Map<String, String>map);
   
   void InsertProfileimg(Map<String, String> map);
-
-  void updateProfileimg(Map<String, String> map);
-  
-  void InsertProfileimg(Map<String, String> map);
   
   void updateProfileimg(Map<String, String> map);
   
