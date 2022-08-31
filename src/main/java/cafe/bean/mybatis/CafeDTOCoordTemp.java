@@ -26,4 +26,5 @@ public class CafeDTOCoordTemp {
   private int closetime;
   private String pet;
   private String parking;
+  private int like_count;
 }

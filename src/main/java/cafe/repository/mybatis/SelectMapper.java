@@ -10,57 +10,63 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
-import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.CafesDTO;
 import cafe.bean.mybatis.Cafes_picsDTO;
 import cafe.bean.mybatis.ProductsDTO;
+import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
 import cafe.bean.mybatis.PaymentDTO;
+
 @Repository
 @Transactional
 @Mapper
-public interface SelectMapper { 
+public interface SelectMapper {
 
   @Select("SELECT c.*, u.insta_account, GROUP_CONCAT(cp.img_file) AS img_file, cp.file_path, cc.cafe_coord AS coord\r\n"
-        + "FROM cafes c\r\n"
-        + "INNER JOIN users u ON c.user_id = u.user_id\r\n"
-        + "INNER JOIN cafes_pics cp ON c.cafe_id = cp.cafe_id\r\n"
-        + "LEFT JOIN cafes_coord cc ON c.cafe_id = cc.cafe_id\r\n"
-        + "GROUP BY c.cafe_id")
+      + "FROM cafes c\r\n"
+      + "INNER JOIN users u ON c.user_id = u.user_id\r\n"
+      + "INNER JOIN cafes_pics cp ON c.cafe_id = cp.cafe_id\r\n"
+      + "LEFT JOIN cafes_coord cc ON c.cafe_id = cc.cafe_id\r\n"
+      + "GROUP BY c.cafe_id")
   public List<CafeDTOMybatis> getCafeListAll();
 
   @Select("select * from users where nickname =#{NickName}")
   public String NickNameCheck(Map<String, String> map);
-  
+
   @Select("select * from users where email = #{Email}")
   public UsersDTO EmailCheck(Map<String, String> map);
 
   @Select("SELECT * FROM CafeDTO GROUP BY address2;")
   List<CafeDTOMybatis> getCafeDistLocation();
 
-  //풍혁0818 : point mapping try1 >> success
+  // 풍혁0818 : point mapping try1 >> success
   @Select("SELECT *, "
       + "ST_Y(coord) AS latitude, "
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
       + "FROM CafeDTO")
-  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
+  List<CafeDTOCoordTemp> getCafesListWithCoordMybatis(@Param("userLong") double userLong,
+      @Param("userLat") double userLat);
 
-  //풍혁0819 : 3000m 이내의 카페만 져오기
+  // 풍혁0819 : 3000m 이내의 카페만 져오기
   @Select("SELECT *, "
       + "ST_Y(coord) AS latitude, "
       + "ST_X(coord) AS longitude, "
       + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
-      + "from CafeDTO "
-      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000")
-  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
+      + "FROM CafeDTO "
+      + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000 "
+      + "ORDER BY RAND() "
+      + "LIMIT 10")
+  List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong") double userLong,
+      @Param("userLat") double userLat);
 
-  //풍혁0826 : 변경되는 반경 ( + filter ) 적용시켜서 List가져오기
+  // 풍혁0826 : 변경되는 반경 ( + filter ) 적용시켜서 List가져오기
   @Select("SELECT *, "
       + "ST_Y(coord) AS latitude, "
       + "ST_X(coord) AS longitude, "
@@ -70,45 +76,43 @@ public interface SelectMapper {
       + "IF(${openFilter}, opentime <= HOUR(NOW())*100+MINUTE(NOW()) AND closetime >= HOUR(NOW())*100+MINUTE(NOW()), opentime > 0) AND "
       + "IF(${petFilter}, pet='Y', (pet='Y' || pet='N')) AND "
       + "IF(${parkingFilter}, parking='Y', (parking='N' || parking='Y')) "
-      + "ORDER BY distance "
-      )
-  
+      + "ORDER BY distance ")
+
   public List<CafeDTOCoordTemp> getCafesListBoundary(
       @Param("userLong") double userLong,
-      @Param("userLat")double userLat,
-      @Param("boundary")int boundary,
-      @Param("openFilter")int openFilterNum, 
-      @Param("petFilter")int petFilterNum, 
-      @Param("parkingFilter")int parkingFilterNum
-      );
+      @Param("userLat") double userLat,
+      @Param("boundary") int boundary,
+      @Param("openFilter") int openFilterNum,
+      @Param("petFilter") int petFilterNum,
+      @Param("parkingFilter") int parkingFilterNum);
 
   @Select("select * from users where email = #{id} and password = #{password}")
   public UsersDTO Login(Map<String, String> map);
-  
+
   @Select("SELECT c.cafe_id, p.*, pi2.*,cpli.recommended\r\n"
-  public List<CafeitemDTO> getCafeitemList(Map<String, String > map);
-        + "FROM cafes c\r\n"
-        + "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
-        + "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
-        + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
-        + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
-        + "WHERE c.cafe_id = ${cafe_id}")
-  
+      + "FROM cafes c\r\n"
+      + "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
+      + "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
+      + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
+      + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
+      + "WHERE c.cafe_id = ${cafe_id}")
+  public List<CafeitemDTO> getCafeitemList(Map<String, String> map);
+
   @Select("SELECT c.cafe_id, p.*, pi2.*\r\n"
-        + "FROM cafes c\r\n"
-        + "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
-        + "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
-        + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
-        + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
-        + "WHERE c.cafe_id = ${cafe_id} and pi2.product_id = ${product_id};")
+      + "FROM cafes c\r\n"
+      + "LEFT JOIN cafes_product_list cpl ON c.cafe_id = cpl.cafe_id\r\n"
+      + "INNER JOIN cafes_product_list_items cpli ON cpl.product_list_id = cpli.product_list_id\r\n"
+      + "LEFT JOIN products p ON cpli.product_id = p.product_id\r\n"
+      + "INNER JOIN products_img pi2 ON p.product_id = pi2.product_id\r\n"
+      + "WHERE c.cafe_id = ${cafe_id} and pi2.product_id = ${product_id};")
   public List<CafeitemDTO> getCafeitem(Map<String, String> map);
-  
+
   @Select("Select * from users where email = #{user_id}")
   public UsersDTO getMember(Map<String, String> map);
-  
+
   @Select("Select * from users_profile_img where profile_id = #{user_id}")
   public UserProfileDTO selectProfileimg(Map<String, String> map);
-  
+
   @Select("Select * from cafes where user_id = ${user_id}")
   public CafesDTO getcafes(Map<String, String> map);
 
@@ -119,7 +123,7 @@ public interface SelectMapper {
   public Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
 
   @Select("Select * from products where product_name_kor=#{product_name_kor} and product_name_eng = #{product_name_eng}"
-        + "and category=#{category} and subcategory=#{subcategory} and price = #{price}")
+      + "and category=#{category} and subcategory=#{subcategory} and price = #{price}")
   public List<ProductsDTO> selectproducts(Map<String, String> map);
 
   @Select("Select * from cafes_product_list where cafe_id=${cafe_id}")
@@ -127,29 +131,36 @@ public interface SelectMapper {
 
   @Select("SELECT * from users")
   public List<UsersDTO> getAllUser();
-  
+
   @Select("SELECT * from CafeDTO WHERE insta_account = #{insta_account}")
-  public CafeDTO getCafeByInsta(@Param("insta_account")String insta_account);
-        
+  public CafeDTO getCafeByInsta(@Param("insta_account") String insta_account);
+
   // 웅비 해당제품의 정보 가져오기
   @Select("select * from products where product_id = ${product_id}")
   public List<CafeitemDTO> getProductInfo(String product_id);
-  
+
   // 웅비 결제 정보 가져오기
   @Select("SELECT payment.payment_num, payment.user_id ,payment.cafe_id ,payment.product_count ,payment.product_id ,payment.total_price ,payment.purchase_way,payment.create_At,products.product_name_kor from payment AS payment left outer join products  as products on payment.product_id = products.product_id")
   public List<PaymentDTO> getOrderList(String user_id);
 
   @Select("select * from users where email =#{Email}")
   public UsersDTO UserCheck(Map<String, String> map);
-}
-  
+
   @Select("SELECT create_date, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY create_date ORDER BY create_date")
   public List<UserDateDTO> getUserAnalyticDay(
-      @Param("user_type")String user_type
-  );
-  
+      @Param("user_type") String user_type);
+
   @Select("SELECT month(create_date) as month, count(*) AS num FROM UserDTO WHERE user_type = #{user_type} GROUP BY month(create_date) ORDER BY month(create_date)")
   public List<UserDateDTO> getUserAnalyticMonth(
-      @Param("user_type")String user_type
-  );
+      @Param("user_type") String user_type);
+
+  @Select("SELECT count(*) FROM analytic_visit WHERE date_row = DATE_FORMAT(now(), '%Y-%m-%d')")
+  public int getTodayVisitNum();
+
+  @Select("SELECT * FROM analytic_visit")
+  public List<AnalyticVisitDTO> getVisitAnalyticDay();
+
+  @Select("SELECT month(date_row) as month, sum(cnt) as cnt FROM analytic_visit group by(month(date_row))")
+  public List<AnalyticVisitDTO> getVisitAnalyticMonth();
+
 }
