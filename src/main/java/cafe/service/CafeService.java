@@ -8,8 +8,13 @@ import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
 import cafe.bean.mybatis.UserDateDTO;
+import cafe.bean.mybatis.PaymentDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 
 public interface CafeService {
 
@@ -73,11 +78,52 @@ public interface CafeService {
   //웅비 결제 정보 저장
   void paymentList(Map<String, String> map);
 
+  //웅비 주문 정보 가져오기
+  List<PaymentDTO> getOrderList(String user_id);
+
+  //웅비 주문정보 삭제하기
+  void deleteOrderList(Map<String, String>map);
+  
+  void InsertProfileimg(Map<String, String> map);
+
+  void updateProfileimg(Map<String, String> map);
+  
   void InsertProfileimg(Map<String, String> map);
   
   void updateProfileimg(Map<String, String> map);
   
   List<UserDateDTO> getUserAnalytic(String user_type, String date_type);
+
+void InsertCafes(Map<String, Object> map2);
+
+CafesDTO getcafes(Map<String, String> map);
+
+List<Cafes_picsDTO> getcafefics(Map<String, String> map);
+
+Cafes_picsDTO getcafeficsprofile(Map<String, String> map);
+
+void insertCafepics(Map<String, String> map);
+
+void updateCafepics(Map<String, String> map);
+
+int insertcafes_product_list(Map<String, String> map);
+
+int insertproducts(Map<String, String> map);
+
+List<ProductsDTO> selectproducts(Map<String, String> map);
+
+List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map);
+
+void insertcafes_product_list_items(Map<String, String> map);
+
+void insertproducts_img(Map<String, String> map);
+
+void cafesUpdate(Map<String, String> map);
+
+void usersinstaupdate(Map<String, String> map);
+
+
+
 
 }
 

@@ -17,7 +17,7 @@ public interface UpdateMapper {
   @Update("UPDATE cafes_coord SET cafe_coord = POINT(${longitude}, ${latitude}) WHERE cafe_id = ${cafe_id}")
   void updateCoordMybatis(@Param("longitude")double longitude, @Param("latitude")double latitude, @Param("cafe_id")long cafe_id);
   
-  @Update("UPDATE users_profile_img SET path=#{path}, profile_img=#{img} WHERE profile_img = ${user_id}")
+  @Update("UPDATE users_profile_img SET path=#{path}, profile_img=#{img} WHERE profile_id = ${user_id}")
   void updateProfileimg(Map<String, String> map);
 
   //테스트 코멘트
@@ -30,6 +30,9 @@ public interface UpdateMapper {
       @Param("parking")String parking, 
       @Param("cafe_id")int cafe_id
       );
+
+  @Update("update cafes_pics set img_file=#{img_file},file_path=#{file_path} where cafe_id =${cafe_id} and img_file like '%profile%'")
+  void updateCafepics(Map<String, String> map);
  
   @Update("UPDATE users "
       + "SET "
@@ -51,5 +54,13 @@ public interface UpdateMapper {
       @Param("business_name")String business_name, 
       @Param("business_address")String business_address
   );
+
+  @Update("UPDATE cafes SET about = #{about},"
+  		+ "subfolder = #{subfolder}"
+  		+ "where cafe_id = ${cafe_id}")
+  void cafesUpdate(Map<String, String> map);
+
+  @Update("UPDATE users SET insta_account = #{insta_account} where user_id = ${user_id}")
+  void usersinstaupdate(Map<String, String> map);
   
 }

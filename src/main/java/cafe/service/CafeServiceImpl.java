@@ -10,11 +10,16 @@ import cafe.bean.jpa.CafeDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
+import cafe.bean.mybatis.CafesDTO;
+import cafe.bean.mybatis.Cafes_picsDTO;
+import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.PaymentDTO;
 import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
+import cafe.bean.mybatis.Cafes_product_listDTO;
 import cafe.repository.jpa.CafeRepository;
+import cafe.repository.mybatis.DeleteMapper;
 import cafe.repository.mybatis.InsertMapper;
 import cafe.repository.mybatis.SelectMapper;
 import cafe.repository.mybatis.UpdateMapper;
@@ -26,9 +31,6 @@ public class CafeServiceImpl implements CafeService {
   private CafeRepository cafeRepository;
 
   @Autowired
-  private PaymentDTO paymentDTO;
-
-  @Autowired
   private SelectMapper selectMapper;
 
   @Autowired
@@ -36,6 +38,9 @@ public class CafeServiceImpl implements CafeService {
 
   @Autowired
   private UpdateMapper updateMapper;
+
+  @Autowired
+  private DeleteMapper deleteMapper;
 
   @Override
   public List<CafeDTO> getCafeListAll() {
@@ -187,10 +192,6 @@ public class CafeServiceImpl implements CafeService {
   }
   
   
-  @Override
-  public void updateProfileimg(Map<String, String> map) {
-  	updateMapper.updateProfileimg(map);
-  }
 
 //웅비 해당 제품정보 불러오기
 @Override
@@ -204,6 +205,111 @@ public void paymentList(Map<String, String> map) {
   insertMapper.paymentList(map);
 }
 
+@Override
+public void updateProfileimg(Map<String, String> map) {
+	updateMapper.updateProfileimg(map);
+
+}
+
+
+@Override
+public void InsertCafes(Map<String, Object> map2) {
+	insertMapper.InsertCafes(map2);
+	
+}
+
+
+@Override
+public CafesDTO getcafes(Map<String, String> map) {
+	return selectMapper.getcafes(map);
+}
+
+
+@Override
+public List<Cafes_picsDTO> getcafefics(Map<String, String> map) {
+	return selectMapper.getcafefics(map);
+}
+
+
+@Override
+public Cafes_picsDTO getcafeficsprofile(Map<String, String> map) {
+	return selectMapper.getcafeficsprofile(map);
+}
+
+
+@Override
+public void insertCafepics(Map<String, String> map) {
+	insertMapper.insertCafepics(map);
+}
+
+
+@Override
+public void updateCafepics(Map<String, String> map) {
+	updateMapper.updateCafepics(map);
+}
+
+
+@Override
+public int insertcafes_product_list(Map<String, String> map) {
+	return insertMapper.insertcafes_product_list(map);
+}
+
+
+@Override
+public int insertproducts(Map<String, String> map) {
+	return insertMapper.insertproducts(map);
+}
+
+
+@Override
+public List<ProductsDTO> selectproducts(Map<String, String> map) {
+	return selectMapper.selectproducts(map);
+}
+
+
+@Override
+public List<Cafes_product_listDTO> selectcafes_product_list(Map<String, String> map) {
+	return selectMapper.selectcafes_product_list(map);
+}
+
+
+@Override
+public void insertcafes_product_list_items(Map<String, String> map) {
+	insertMapper.insertcafes_product_list_items(map);
+	
+}
+
+
+@Override
+public void insertproducts_img(Map<String, String> map) {
+	insertMapper.insertproducts_img(map);
+	
+}
+
+
+@Override
+public void cafesUpdate(Map<String, String> map) {
+	updateMapper.cafesUpdate(map);
+}
+
+
+@Override
+public void usersinstaupdate(Map<String, String> map) {
+	updateMapper.usersinstaupdate(map);
+	
+}
+
+//웅비 결제정보 가져오기
+@Override
+public List<PaymentDTO> getOrderList(String user_id) {
+  return selectMapper.getOrderList(user_id);
+}
+@Override
+public void deleteOrderList(Map<String, String> map) {
+  deleteMapper.deleteOrderList(map);
+  
+}
+
   @Override
   public List<UserDateDTO> getUserAnalytic(String user_type, String date_type) {
     if(date_type.equals("day")) {
@@ -211,6 +317,7 @@ public void paymentList(Map<String, String> map) {
     }else {
       return selectMapper.getUserAnalyticMonth(user_type);
     }
-    
+
   }
+
 }
