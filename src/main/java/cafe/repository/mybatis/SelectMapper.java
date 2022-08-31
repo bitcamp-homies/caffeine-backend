@@ -58,7 +58,7 @@ public interface SelectMapper {
       + "FROM CafeDTO "
       + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000 "
       + "ORDER BY RAND() "
-      + "LIMIT 20")
+      + "LIMIT 10")
   List<CafeDTOCoordTemp> getCafesListBoundary3000Mybatis(@Param("userLong")double userLong, @Param("userLat")double userLat);
 
   //풍혁0826 : 변경되는 반경 ( + filter ) 적용시켜서 List가져오기
