@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -78,6 +79,10 @@ public interface CafeService {
   void updateProfileimg(Map<String, String> map);
   
   List<UserDateDTO> getUserAnalytic(String user_type, String date_type);
+
+  void increaeVisit();
+
+  List<AnalyticVisitDTO> getVisitAnalytic(String dateFilter);
 
 }
 

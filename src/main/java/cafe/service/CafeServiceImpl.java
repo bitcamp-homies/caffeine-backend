@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -192,17 +193,17 @@ public class CafeServiceImpl implements CafeService {
   	updateMapper.updateProfileimg(map);
   }
 
-//웅비 해당 제품정보 불러오기
-@Override
-public List<CafeitemDTO> getProductInfo(String product_id) {
-  return selectMapper.getProductInfo(product_id);
-}
-
-//웅비 결제정보 저장하기
-@Override
-public void paymentList(Map<String, String> map) {
-  insertMapper.paymentList(map);
-}
+  //웅비 해당 제품정보 불러오기
+  @Override
+  public List<CafeitemDTO> getProductInfo(String product_id) {
+    return selectMapper.getProductInfo(product_id);
+  }
+  
+  //웅비 결제정보 저장하기
+  @Override
+  public void paymentList(Map<String, String> map) {
+    insertMapper.paymentList(map);
+  }
 
   @Override
   public List<UserDateDTO> getUserAnalytic(String user_type, String date_type) {
@@ -213,4 +214,28 @@ public void paymentList(Map<String, String> map) {
     }
     
   }
+  
+  @Override
+  public void increaeVisit() {
+    //풍혁0831 : visit table에서 오늘 날짜의 튜플이 존재하는지 확인 먼저해야된다. 
+    int isAlready = selectMapper.getTodayVisitNum();
+//    System.out.println("\n @ LOG @ today visit num : " + isAlready);
+    if(isAlready > 0) {
+//      System.out.println("\n 오늘 날짜의 튜플이 이미 존재합니다. 방문자수를 증가시키겠습니다");
+      updateMapper.increaseTodayVisitCnt();
+    }else {
+//      System.out.println("\n 오늘 날짜의 튜플이 없습니다.튜플을 생성하고 방문자수를 증가시키겠습니다");
+      insertMapper.createRowAnalyticVisit();
+    }
+  }
+  
+  @Override
+  public List<AnalyticVisitDTO> getVisitAnalytic(String dateFilter) {
+    if(dateFilter.equals("day")) {
+      return selectMapper.getVisitAnalyticDay();
+    }else {
+      return selectMapper.getVisitAnalyticMonth();
+    }
+  }
+  
 }

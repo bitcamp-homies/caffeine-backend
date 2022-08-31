@@ -52,4 +52,7 @@ public interface UpdateMapper {
       @Param("business_address")String business_address
   );
   
+  @Update("UPDATE analytic_visit SET cnt = cnt + 1 WHERE date_row = DATE_FORMAT(now(), '%Y-%m-%d')")
+  void increaseTodayVisitCnt();
+  
 }

@@ -24,5 +24,7 @@ public interface InsertMapper {
 			+ "values(#{user_id},#{path},#{img})")
 	public void InsertProfileimg(Map<String, String> map);
   
+	@Insert("INSERT INTO analytic_visit VALUES(DATE_FORMAT(now(), '%Y-%m-%d'), 1)")
+	public void createRowAnalyticVisit();
 
 }

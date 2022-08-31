@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cafe.bean.jpa.CafeDTO;
+import cafe.bean.mybatis.AnalyticVisitDTO;
 import cafe.bean.mybatis.CafeDTOCoordTemp;
 import cafe.bean.mybatis.CafeDTOMybatis;
 import cafe.bean.mybatis.CafeitemDTO;
@@ -120,4 +121,14 @@ public interface SelectMapper {
   public List<UserDateDTO> getUserAnalyticMonth(
       @Param("user_type")String user_type
   );
+  
+  @Select("SELECT count(*) FROM analytic_visit WHERE date_row = DATE_FORMAT(now(), '%Y-%m-%d')")
+  public int getTodayVisitNum();
+  
+  @Select("SELECT * FROM analytic_visit")
+  public List<AnalyticVisitDTO> getVisitAnalyticDay();
+  
+  @Select("SELECT month(date_row) as month, sum(cnt) as cnt FROM analytic_visit group by(month(date_row))")
+  public List<AnalyticVisitDTO> getVisitAnalyticMonth();
+  
 }
