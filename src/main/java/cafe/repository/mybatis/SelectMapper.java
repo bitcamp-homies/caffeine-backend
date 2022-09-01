@@ -178,7 +178,7 @@ public interface SelectMapper {
   + "FROM CafeDTO "
   + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${distanceKey} "
   + "ORDER BY RAND() "
-  + "LIMIT 10")
+  + "LIMIT 4")
 List<CafeDTOCoordTemp> getCafeListByDistance(@Param("userLong") double userLong,
   @Param("userLat") double userLat, @Param("distanceKey") int distanceKey);
 
