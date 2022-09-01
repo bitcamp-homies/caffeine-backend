@@ -21,6 +21,7 @@ import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
+import cafe.bean.mybatis.DistanceCount;
 import cafe.bean.mybatis.PaymentDTO;
 
 @Repository
@@ -162,5 +163,24 @@ public interface SelectMapper {
 
   @Select("SELECT month(date_row) as month, sum(cnt) as cnt FROM analytic_visit group by(month(date_row))")
   public List<AnalyticVisitDTO> getVisitAnalyticMonth();
+
+  @Select("SELECT " +
+          "SUM(IF(ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 1000, 1, 0)) AS OneKm, " +
+          "SUM(IF(ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 3000, 1, 0)) AS ThreeKm, " +
+          "SUM(IF(ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < 7000, 1, 0)) AS SevenKm " +
+          "FROM CafeDTO")
+  public List<DistanceCount> getDistanceCount(@Param("userLong") double userLong, @Param("userLat") double userLat);
+
+  @Select("SELECT *, "
+  + "ST_Y(coord) AS latitude, "
+  + "ST_X(coord) AS longitude, "
+  + "ST_Distance_Sphere(POINT(${userLong}, ${userLat}), coord) AS distance "
+  + "FROM CafeDTO "
+  + "WHERE ST_Distance_Sphere(POINT(${userLong},${userLat}), coord) < ${distanceKey} "
+  + "ORDER BY RAND() "
+  + "LIMIT 10")
+List<CafeDTOCoordTemp> getCafeListByDistance(@Param("userLong") double userLong,
+  @Param("userLat") double userLat, @Param("distanceKey") int distanceKey);
+
 
 }

@@ -19,6 +19,7 @@ import cafe.bean.mybatis.UserDateDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
+import cafe.bean.mybatis.DistanceCount;
 import cafe.repository.jpa.CafeRepository;
 import cafe.repository.mybatis.DeleteMapper;
 import cafe.repository.mybatis.InsertMapper;
@@ -331,6 +332,16 @@ public class CafeServiceImpl implements CafeService {
     } else {
       return selectMapper.getVisitAnalyticMonth();
     }
+  }
+
+  @Override
+  public List<DistanceCount> getDistanceCount(double userLong, double userLat) {
+    return selectMapper.getDistanceCount(userLong, userLat);
+  }
+
+  @Override
+  public List<CafeDTOCoordTemp> getCafeListByDistance(double userLong, double userLat, int distanceKey) {
+    return selectMapper.getCafeListByDistance(userLong, userLat, distanceKey);
   }
 
 }

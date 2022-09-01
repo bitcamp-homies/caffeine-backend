@@ -24,6 +24,7 @@ import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
+import cafe.bean.mybatis.DistanceCount;
 import cafe.service.CafeService;
 
 @RestController
@@ -349,6 +350,18 @@ public class CafeController {
   public List<AnalyticVisitDTO> getVisitAnalytic(
       @RequestParam(value = "dateFilter") String dateFilter) {
     return cafeService.getVisitAnalytic(dateFilter);
+  }
+
+  @GetMapping(value = "/cafe/getDistanceCount")
+  public List<DistanceCount> getDistanceCount(@RequestParam(value = "userLong") double userLong,
+      @RequestParam(value = "userLat") double userLat) {
+    return cafeService.getDistanceCount(userLong, userLat);
+  }
+
+  @GetMapping(value = "/cafe/getCafeListByDistance")
+  public List<CafeDTOCoordTemp> getCafeListByDistance(@RequestParam(value = "userLong") double userLong,
+      @RequestParam(value = "userLat") double userLat, @RequestParam(value = "distanceKey") int distanceKey) {
+    return cafeService.getCafeListByDistance(userLong, userLat, distanceKey);
   }
 
 }

@@ -16,6 +16,7 @@ import cafe.bean.mybatis.ProductsDTO;
 import cafe.bean.mybatis.UserProfileDTO;
 import cafe.bean.mybatis.UsersDTO;
 import cafe.bean.mybatis.Cafes_product_listDTO;
+import cafe.bean.mybatis.DistanceCount;
 
 public interface CafeService {
 
@@ -125,5 +126,9 @@ public interface CafeService {
   void cafesUpdate(Map<String, String> map);
 
   void usersinstaupdate(Map<String, String> map);
+
+  List<DistanceCount> getDistanceCount(double userLong, double userLat);
+
+  List<CafeDTOCoordTemp> getCafeListByDistance(double userLong, double userLat, int distanceKey);
 
 }
